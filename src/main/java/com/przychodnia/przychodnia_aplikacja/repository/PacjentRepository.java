@@ -1,20 +1,41 @@
 package com.przychodnia.przychodnia_aplikacja.repository;
 
-import com.przychodnia.przychodnia_aplikacja.model.Pacjent;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
+@Repository
+public class PacjentRepository {
 
-public interface PacjentRepository extends JpaRepository<Pacjent, Long> {
+    private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    Optional<Pacjent> findByPesel(String pesel);
+    public PacjentRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
-    Optional<Pacjent> findByUser_Iduser(Long iduser);
+    // Sprawdzanie, czy pacjent istnieje na podstawie PESEL
+    public boolean existsByPesel(String pesel) {
+        String sql = "SELECT COUNT(*) > 0 FROM pacjent WHERE pesel = :pesel";
+        Map<String, Object> params = new HashMap<>();
+        params.put("pesel", pesel);
 
-    boolean existsByPesel(String pesel);
+        return jdbcTemplate.queryForObject(sql, params, Boolean.class);
+    }
 
-    boolean existsByNumerTel(String numerTel);
+    // Zapis nowego pacjenta
+    public void savePacjent(Long idUser, String pesel, String dataUrodzenia, String numerTel) {
+        String sql = """
+            INSERT INTO pacjent (iduser, pesel, data_urodzenia, numer_tel)
+            VALUES (:iduser, :pesel, :dataUrodzenia, :numerTel)
+        """;
+        Map<String, Object> params = new HashMap<>();
+        params.put("iduser", idUser);
+        params.put("pesel", pesel);
+        params.put("dataUrodzenia", dataUrodzenia);
+        params.put("numerTel", numerTel);
 
-
+        jdbcTemplate.update(sql, params);
+    }
 }
