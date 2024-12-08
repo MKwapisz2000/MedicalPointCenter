@@ -38,4 +38,13 @@ public class PacjentRepository {
 
         jdbcTemplate.update(sql, params);
     }
+
+    // Metoda do pobrania idpacjent na podstawie iduser
+    public Long getIdPacjentByIdUser(Long idUser) {
+        String sql = "SELECT idpacjent FROM pacjent WHERE iduser = :iduser";
+        Map<String, Object> params = new HashMap<>();
+        params.put("iduser", idUser);
+
+        return jdbcTemplate.queryForObject(sql, params, Long.class);
+    }
 }

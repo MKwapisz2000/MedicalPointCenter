@@ -32,12 +32,25 @@ public class RejestracjaController {
             @RequestParam("email") String email,
             @RequestParam("haslo") String haslo,
             @RequestParam("dataUrodzenia") String dataUrodzenia,
+            @RequestParam("miasto") String miasto,
+            @RequestParam("ulica") String ulica,
+            @RequestParam("nrBudynku") String nrBudynku,
+            @RequestParam("nrLokalu") String nrLokalu,
+            @RequestParam("kodPocztowy") String kodPocztowy,
+            @RequestParam(value = "regulamin", defaultValue = "false") boolean regulamin, // Domyślnie nie zaznaczone
             Model model
     ) {
         try {
+            // Sprawdzanie, czy checkbox regulaminu jest zaznaczony
+            if (!regulamin) {
+                model.addAttribute("regulaminError", "Musisz zaakceptować regulamin, aby kontynuować.");
+                return "rejestracja"; // Wróć do formularza, gdy regulamin nie jest zaakceptowany
+            }
+
             // Próba rejestracji
-            rejestracjaService.rejestracjaNewPatient(imie, nazwisko, pesel, numerTel, email, haslo, dataUrodzenia);
+            rejestracjaService.rejestracjaNewPatient(imie, nazwisko, pesel, numerTel, email, haslo, dataUrodzenia, miasto, ulica, nrBudynku, nrLokalu, kodPocztowy);
             model.addAttribute("successMessage", "Rejestracja zakończona sukcesem!");
+
             return "rejestracja"; // Pozostajemy na stronie rejestracji, z komunikatem o sukcesie
         } catch (RuntimeException e) {
             // Obsługa błędów i przekazywanie komunikatów do widoku
@@ -46,7 +59,7 @@ public class RejestracjaController {
             } else if (e.getMessage().contains("Email")) {
                 model.addAttribute("emailError", e.getMessage());
             }
-            // Możemy dodać inne błędy
+
             return "rejestracja"; // Wróć do formularza z komunikatem o błędzie
         }
     }
