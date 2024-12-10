@@ -15,8 +15,7 @@ public class AdminRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
-    // Metoda do pobrania idadmin na podstawie iduser
+    // Metoda do pobrania id admin na podstawie iduser
     public Long getIdAdminByIdUser(Long idUser) {
         String sql = "SELECT idadmin FROM admin WHERE iduser = :iduser";
         Map<String, Object> params = new HashMap<>();
@@ -24,4 +23,18 @@ public class AdminRepository {
 
         return jdbcTemplate.queryForObject(sql, params, Long.class);
     }
+
+    // Zapis nowego admina
+    public void saveAdmin(Long idUser) {
+        String sql = """
+            INSERT INTO admin (iduser)
+            VALUES (:iduser)
+        """;
+        Map<String, Object> params = new HashMap<>();
+        params.put("iduser", idUser);
+
+        jdbcTemplate.update(sql, params);
+    }
+
+
 }
