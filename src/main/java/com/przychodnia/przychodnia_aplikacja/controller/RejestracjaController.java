@@ -1,13 +1,16 @@
 package com.przychodnia.przychodnia_aplikacja.controller;
 
 import com.przychodnia.przychodnia_aplikacja.service.RejestracjaService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes("rejestrationSuccess")
 public class RejestracjaController {
 
     private final RejestracjaService rejestracjaService;
@@ -38,7 +41,7 @@ public class RejestracjaController {
             @RequestParam("nrLokalu") String nrLokalu,
             @RequestParam("kodPocztowy") String kodPocztowy,
             @RequestParam(value = "regulamin", defaultValue = "false") boolean regulamin, // Domyślnie nie zaznaczone
-            Model model
+            Model model, HttpSession session
     ) {
         try {
             // Sprawdzanie, czy checkbox regulaminu jest zaznaczony
@@ -49,9 +52,9 @@ public class RejestracjaController {
 
             // Próba rejestracji
             rejestracjaService.rejestracjaNewPatient(imie, nazwisko, pesel, numerTel, email, haslo, dataUrodzenia, miasto, ulica, nrBudynku, nrLokalu, kodPocztowy);
-            model.addAttribute("successMessage", "Rejestracja zakończona sukcesem!");
+            session.setAttribute("rejestrationSuccess", true); // Przechowywanie w sesji
+            return "redirect:/rejestracja_sukces";
 
-            return "rejestracja"; // Pozostajemy na stronie rejestracji, z komunikatem o sukcesie
         } catch (RuntimeException e) {
             // Obsługa błędów i przekazywanie komunikatów do widoku
             if (e.getMessage().contains("Pesel")) {
@@ -59,8 +62,19 @@ public class RejestracjaController {
             } else if (e.getMessage().contains("Email")) {
                 model.addAttribute("emailError", e.getMessage());
             }
-
-            return "rejestracja"; // Wróć do formularza z komunikatem o błędzie
+            // Powrót do formularza z komunikatem o błędzie
+            return "rejestracja";
         }
+    }
+
+    // Przykład strony chronionej, dostępnej tylko dla zarejestrowanych użytkowników
+    @GetMapping("/rejestracja_sukces")
+    public String rejestracjaSukces(HttpSession session) {
+        if (session.getAttribute("rejestrationSuccess") == null) {
+            // Jeśli atrybut nie istnieje, przekieruj na stronę rejestracji
+            return "redirect:/rejestracja";
+        }
+        session.removeAttribute("rejestrationSuccess");
+        return "rejestracja_sukces"; // Załadowanie strony z sukcesem rej.
     }
 }

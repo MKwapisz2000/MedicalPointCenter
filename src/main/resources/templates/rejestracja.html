@@ -9,11 +9,6 @@
 
 <h1>Rejestracja</h1>
 
-<!-- Wyświetlanie komunikatu o sukcesie -->
-<div th:if="${successMessage}" style="color: green;">
-    <p th:text="${successMessage}"></p>
-</div>
-
 <form action="/rejestracja" method="post">
     <label for="imie">Imię:</label>
     <input type="text" id="imie" name="imie" /><br><br>
