@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zmiana Hasła</title>
+</head>
+<body>
+
+<h1>Zmiana Hasła</h1>
+
+<div th:if="${successMessage}" style="color: green; font-weight: bold;" th:text="${successMessage}"></div>
+<div th:if="${noweHasloError}" style="color: red;" th:text="${noweHasloError}"></div>
+<div th:if="${validationError}" style="color: red;" th:text="${validationError}"></div>
+
+<form action="/zmiana_hasla" method="post">
+    <label for="noweHaslo">Nowe hasło:</label>
+    <input type="password" id="noweHaslo" name="noweHaslo" /><br><br>
+
+    <label for="powtorzHaslo">Powtórz nowe hasło:</label>
+    <input type="password" id="powtorzHaslo" name="powtorzHaslo" /><br><br>
+
+    <button type="submit">Zmień hasło</button>
+</form>
+
+</body>
+</html>

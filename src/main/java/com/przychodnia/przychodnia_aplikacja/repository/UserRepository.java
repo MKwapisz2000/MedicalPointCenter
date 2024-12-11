@@ -81,4 +81,17 @@ public class UserRepository {
         String getIdSql = "SELECT iduser FROM user WHERE email = :email";
         return jdbcTemplate.queryForObject(getIdSql, params, Long.class);
     }
+
+    // Zmiana hasla użytkownika
+    public void saveHaslo(String haslo, Long iduser) {
+        String sql = """
+                    UPDATE user SET haslo = :haslo WHERE iduser = :iduser
+                """;
+        Map<String, Object> params = new HashMap<>();
+        params.put("haslo", haslo);
+        params.put("iduser", iduser);
+
+        // Wstawienie użytkownika do bazy danych
+        jdbcTemplate.update(sql, params);
+    }
 }

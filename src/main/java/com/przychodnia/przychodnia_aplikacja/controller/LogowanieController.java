@@ -70,7 +70,7 @@ public class LogowanieController {
     @GetMapping("/logout")
     public String logout(SessionStatus sessionStatus) {
         sessionStatus.setComplete(); // Usuwanie danych z sesji
-        return "redirect:/logowanie"; // Przekierowanie na stronę logowania
+        return "redirect:/start"; // Przekierowanie na stronę logowania
     }
 
     // Przykład strony chronionej, dostępnej tylko dla zalogowanych użytkowników
@@ -79,7 +79,7 @@ public class LogowanieController {
         if (!model.containsAttribute("loggedInUser")) {
             return "redirect:/logowanie"; // Przekierowanie na logowanie, jeśli użytkownik nie jest zalogowany
         }
-        return "dashboard"; // Załadowanie strony dashboard.html
+        return "/dashboard"; // Załadowanie strony dashboard.html
     }
 
 
