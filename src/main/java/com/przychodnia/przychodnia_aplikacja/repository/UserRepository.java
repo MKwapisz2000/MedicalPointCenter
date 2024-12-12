@@ -3,6 +3,7 @@ package com.przychodnia.przychodnia_aplikacja.repository;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +34,15 @@ public class UserRepository {
         return jdbcTemplate.queryForObject(sql, params, Long.class);
     }
 
+    // Metoda do pobrania typu usera na podstawie wprowadzonego emaila
+    public String getTypByEmail(String email) {
+        String sql = "SELECT typ FROM user WHERE email = :email";
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", email);
+
+        return jdbcTemplate.queryForObject(sql, params, String.class);
+    }
+
     // Metoda do pobrania hasła hashowanego na podstawie id usera
     public String getHasloById(Long iduser) {
         String sql = "SELECT haslo FROM user WHERE iduser = :iduser";
@@ -54,6 +64,33 @@ public class UserRepository {
     // Metoda do pobrania statusu usera na podstawie wprowadzonego id usera
     public String getStatusById(Long iduser) {
         String sql = "SELECT status FROM user WHERE iduser = :iduser";
+        Map<String, Object> params = new HashMap<>();
+        params.put("iduser", iduser);
+
+        return jdbcTemplate.queryForObject(sql, params, String.class);
+    }
+
+    // Metoda do pobrania emaila usera na podstawie wprowadzonego id usera
+    public String getEmailById(Long iduser) {
+        String sql = "SELECT email FROM user WHERE iduser = :iduser";
+        Map<String, Object> params = new HashMap<>();
+        params.put("iduser", iduser);
+
+        return jdbcTemplate.queryForObject(sql, params, String.class);
+    }
+
+    // Metoda do pobrania imienia usera na podstawie wprowadzonego id usera
+    public String getImieById(Long iduser) {
+        String sql = "SELECT imie FROM user WHERE iduser = :iduser";
+        Map<String, Object> params = new HashMap<>();
+        params.put("iduser", iduser);
+
+        return jdbcTemplate.queryForObject(sql, params, String.class);
+    }
+
+    // Metoda do pobrania nazwiska usera na podstawie wprowadzonego id usera
+    public String getNazwiskoById(Long iduser) {
+        String sql = "SELECT nazwisko FROM user WHERE iduser = :iduser";
         Map<String, Object> params = new HashMap<>();
         params.put("iduser", iduser);
 

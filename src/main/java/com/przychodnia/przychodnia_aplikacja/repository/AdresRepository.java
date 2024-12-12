@@ -45,6 +45,59 @@ public class AdresRepository {
 
         System.out.println("Dane do zapisania: " + params2);
 
+    }
 
+    // Metoda do pobrania idadres na podstawie idpacjenta
+    public Long getIdAdresByIdPacjent(Long idpacjent) {
+        String sql = "SELECT idadres FROM adres WHERE idpacjent = :idpacjent";
+        Map<String, Object> params = new HashMap<>();
+        params.put("idpacjent", idpacjent);
+
+        return jdbcTemplate.queryForObject(sql, params, Long.class);
+    }
+
+    // Metoda do pobrania miasta na podstawie idpacjenta
+    public String getMiastoByIdPacjent(Long idpacjent) {
+        String sql = "SELECT miasto FROM adres WHERE idpacjent = :idpacjent";
+        Map<String, Object> params = new HashMap<>();
+        params.put("idpacjent", idpacjent);
+
+        return jdbcTemplate.queryForObject(sql, params, String.class);
+    }
+
+    // Metoda do pobrania ulicy na podstawie idpacjenta
+    public String getUlicaByIdPacjent(Long idpacjent) {
+        String sql = "SELECT ulica FROM adres WHERE idpacjent = :idpacjent";
+        Map<String, Object> params = new HashMap<>();
+        params.put("idpacjent", idpacjent);
+
+        return jdbcTemplate.queryForObject(sql, params, String.class);
+    }
+
+    // Metoda do pobrania numeru budynku na podstawie idpacjenta
+    public String getNrBudynkuByIdPacjent(Long idpacjent) {
+        String sql = "SELECT nr_budynku FROM adres WHERE idpacjent = :idpacjent";
+        Map<String, Object> params = new HashMap<>();
+        params.put("idpacjent", idpacjent);
+
+        return jdbcTemplate.queryForObject(sql, params, String.class);
+    }
+
+    // Metoda do pobrania numeru lokalu na podstawie idpacjenta
+    public String getNrLokaluByIdPacjent(Long idpacjent) {
+        String sql = "SELECT nr_lokalu FROM adres WHERE idpacjent = :idpacjent";
+        Map<String, Object> params = new HashMap<>();
+        params.put("idpacjent", idpacjent);
+
+        return jdbcTemplate.queryForObject(sql, params, String.class);
+    }
+
+    // Metoda do pobrania kodu pocztowego na podstawie idpacjenta
+    public String getKodPocztowyByIdPacjent(Long idpacjent) {
+        String sql = "SELECT kod_pocztowy FROM adres WHERE idpacjent = :idpacjent";
+        Map<String, Object> params = new HashMap<>();
+        params.put("idpacjent", idpacjent);
+
+        return jdbcTemplate.queryForObject(sql, params, String.class);
     }
 }

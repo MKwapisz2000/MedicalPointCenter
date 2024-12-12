@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dane Osobowe</title>
+</head>
+<body>
+
+<h1>Dane osobowe</h1>
+
+<h2>Informacje osobiste:</h2>
+<p>Imię: <span th:text="${danePacjenta.imie}"></span></p>
+<p>Nazwisko: <span th:text="${danePacjenta.nazwisko}"></span></p>
+<p>Pesel: <span th:text="${danePacjenta.pesel}"></span></p>
+<p>Data urodzenia: <span th:text="${danePacjenta.dataUrodzenia}"></span></p>
+<br><br>
+
+<h2>Adres:</h2>
+<p>Ulica: <span th:text="${danePacjenta.ulica}"></span></p>
+<p>Numer budynku: <span th:text="${danePacjenta.nrBudynku}"></span></p>
+<p>Numer lokalu: <span th:text="${danePacjenta.nrLokalu}"></span></p>
+<p>Miasto: <span th:text="${danePacjenta.miasto}"></span></p>
+<p>Kod Pocztowy: <span th:text="${danePacjenta.kodPocztowy}"></span></p>
+<br><br>
+
+<h2>Dane kontaktowe:</h2>
+<p>Email: <span th:text="${danePacjenta.email}"></span></p>
+<p>Telefon: <span th:text="${danePacjenta.numerTelefonu}"></span></p>
+<br><br>
+
+<a href="/pacjent/edycja_danych" target="_blank">Edytuj dane osobowe</a>
+
+
+</body>
+</html>

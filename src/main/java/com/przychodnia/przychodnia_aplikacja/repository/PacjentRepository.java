@@ -40,11 +40,38 @@ public class PacjentRepository {
     }
 
     // Metoda do pobrania idpacjent na podstawie iduser
-    public Long getIdPacjentByIdUser(Long idUser) {
+    public Long getIdPacjentByIdUser(Long iduser) {
         String sql = "SELECT idpacjent FROM pacjent WHERE iduser = :iduser";
         Map<String, Object> params = new HashMap<>();
-        params.put("iduser", idUser);
+        params.put("iduser", iduser);
 
         return jdbcTemplate.queryForObject(sql, params, Long.class);
+    }
+
+    // Metoda do pobrania pesla na podstawie idpacjenta
+    public String getPeseltByIdPacjent(Long idpacjent) {
+        String sql = "SELECT pesel FROM pacjent WHERE idpacjent = :idpacjent";
+        Map<String, Object> params = new HashMap<>();
+        params.put("idpacjent", idpacjent);
+
+        return jdbcTemplate.queryForObject(sql, params, String.class);
+    }
+
+    // Metoda do pobrania daty_ur na podstawie idpacjenta
+    public String getDataUrByIdPacjent(Long idpacjent) {
+        String sql = "SELECT data_urodzenia FROM pacjent WHERE idpacjent = :idpacjent";
+        Map<String, Object> params = new HashMap<>();
+        params.put("idpacjent", idpacjent);
+
+        return jdbcTemplate.queryForObject(sql, params, String.class);
+    }
+
+    // Metoda do pobrania numeru_tel na podstawie idpacjenta
+    public String getNumerTelByIdPacjent(Long idpacjent) {
+        String sql = "SELECT numer_tel FROM pacjent WHERE idpacjent = :idpacjent";
+        Map<String, Object> params = new HashMap<>();
+        params.put("idpacjent", idpacjent);
+
+        return jdbcTemplate.queryForObject(sql, params, String.class);
     }
 }

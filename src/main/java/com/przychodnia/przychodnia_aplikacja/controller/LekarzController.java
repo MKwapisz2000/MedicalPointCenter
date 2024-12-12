@@ -4,19 +4,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/lekarz")
-@SessionAttributes("loggedInUser")
+@SessionAttributes({"loggedInUser", "userRole"})
 public class LekarzController {
 
     @GetMapping("/dashboard")
-    public String adminDashboard(Model model) {
+    public String lekarzDashboard(
+            @SessionAttribute(value = "loggedInUser", required = false) String loggedInUser,
+            @SessionAttribute(value = "userRole", required = false) String userRole,
+            Model model) {
         // Sprawdzanie, czy użytkownik jest zalogowany
-        if (!model.containsAttribute("loggedInUser")) {
-            return "redirect:/logowanie"; // Przekierowanie na stronę logowania, jeśli użytkownik nie jest zalogowany
+        if (loggedInUser == null || userRole == null) {
+            return "redirect:/logowanie";
         }
-        return "lekarz/dashboard"; // Załadowanie widoku pacjent/dashboard.html
+        // Sprawdzanie, czy użytkownik ma rolę LEKARZ
+        if (!"LEKARZ".equalsIgnoreCase(userRole)) {
+            return "redirect:/logowanie";
+        }
+
+        return "lekarz/dashboard";
     }
+
 }

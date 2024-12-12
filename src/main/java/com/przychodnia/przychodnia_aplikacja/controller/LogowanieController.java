@@ -1,4 +1,5 @@
 package com.przychodnia.przychodnia_aplikacja.controller;
+import com.przychodnia.przychodnia_aplikacja.repository.UserRepository;
 import com.przychodnia.przychodnia_aplikacja.service.LogowanieService;
 
 import org.springframework.stereotype.Controller;
@@ -10,13 +11,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
-@SessionAttributes("loggedInUser")
+@SessionAttributes({"loggedInUser", "userRole"})
 public class LogowanieController {
 
     private final LogowanieService logowanieService;
+    private final UserRepository userRepository;
 
-    public LogowanieController(LogowanieService logowanieService) {
+    public LogowanieController(LogowanieService logowanieService, UserRepository userRepository) {
         this.logowanieService = logowanieService;
+        this.userRepository = userRepository;
     }
 
     // Wyświetlanie formularza logowania
@@ -42,8 +45,11 @@ public class LogowanieController {
             // Próba logowania
             String redirectPage = logowanieService.logowanieUser(email, haslo);
             model.addAttribute("successMessage", "Logowanie zakończone sukcesem!");
-            model.addAttribute("loggedInUser", email); // Przechowywanie w sesji
-            // Pozostajemy na stronie logowania, z komunikatem o sukcesie
+            model.addAttribute("loggedInUser", email);
+            model.addAttribute("userRole", userRepository.getTypByEmail(email));
+            System.out.println("userRole w sesji: " + model.getAttribute("userRole"));
+
+
             return redirectPage;
 
         } catch (RuntimeException e) {
@@ -79,11 +85,16 @@ public class LogowanieController {
         if (!model.containsAttribute("loggedInUser")) {
             return "redirect:/logowanie"; // Przekierowanie na logowanie, jeśli użytkownik nie jest zalogowany
         }
-        return "/dashboard"; // Załadowanie strony dashboard.html
+
+        String userRole = (String) model.getAttribute("userRole");
+        if ("ADMIN".equalsIgnoreCase(userRole)) {
+            return "redirect:/admin/dashboard"; // Przekierowanie do panelu administratora
+        } else if ("PACJENT".equalsIgnoreCase(userRole)) {
+            return "redirect:/pacjent/dashboard"; // Przekierowanie do panelu pacjenta
+        } else if ("LEKARZ".equalsIgnoreCase(userRole)) {
+            return "redirect:/lekarz/dashboard"; // Przekierowanie do panelu lekarza
+        }
+
+        return "redirect:/logowanie";
     }
-
-
-
-
-
 }
