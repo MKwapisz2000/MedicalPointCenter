@@ -1,10 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edycja danych osobowych</title>
 </head>
 <body>
+
+<h1>Edycja danych osobowych</h1>
+
+<div th:if="${successMessage}" style="color: green; font-weight: bold;" th:text="${successMessage}"></div>
+<div th:if="${validationError}" style="color: red;" th:text="${validationError}"></div>
+
+<form action="/pacjent/edycja_danych" method="post">
+
+<h2>Informacje osobiste:</h2>
+    <label for="imie">Imię:</label>
+    <input type="text" id="imie" name="imie" th:value="${danePacjenta.imie}" /><br>
+
+    <label for="nazwisko">Nazwisko:</label>
+    <input type="text" id="nazwisko" name="nazwisko" th:value="${danePacjenta.nazwisko}" /><br>
+
+    <label for="pesel">Pesel:</label>
+    <input type="text" id="pesel" name="pesel" th:value="${danePacjenta.pesel}" />
+    <span th:if="${peselError}" style="color: red;" th:text="${peselError}"></span><br>
+
+    <br>
+    <label for="dataUrodzenia">Data urodzenia:</label>
+    <input type="date" id="dataUrodzenia" name="dataUrodzenia" th:value="${danePacjenta.dataUrodzenia}" /><br>
+<br><br>
+
+<h2>Adres:</h2>
+    <label for="ulica">Ulica:</label>
+    <input type="text" id="ulica" name="ulica" th:value="${danePacjenta.ulica}" /><br>
+
+    <label for="nrBudynku">Numer budynku:</label>
+    <input type="text" id="nrBudynku" name="nrBudynku" th:value="${danePacjenta.nrBudynku}" /><br>
+
+    <label for="nrLokalu">Numer lokalu:</label>
+    <input type="text" id="nrLokalu" name="nrLokalu" th:value="${danePacjenta.nrLokalu}" /><br>
+
+    <label for="miasto">Miasto:</label>
+    <input type="text" id="miasto" name="miasto" th:value="${danePacjenta.miasto}" /><br>
+
+    <label for="kodPocztowy">Kod pocztowy:</label>
+    <input type="text" id="kodPocztowy" name="kodPocztowy" th:value="${danePacjenta.kodPocztowy}" /><br>
+    <br><br>
+
+<h2>Dane kontaktowe:</h2>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" th:value="${danePacjenta.email}" />
+    <span th:if="${emailError}" style="color: red;" th:text="${emailError}"></span><br>
+
+    <br>
+    <label for="numerTel">Numer telefonu:</label>
+    <input type="text" id="numerTel" name="numerTel" th:value="${danePacjenta.numerTelefonu}" /><br>
+<br><br>
+
+<button type="submit">Edytuj dane</button>
+</form>
 
 </body>
 </html>

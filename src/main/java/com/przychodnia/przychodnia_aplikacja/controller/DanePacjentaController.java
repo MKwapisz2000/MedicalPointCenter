@@ -22,7 +22,7 @@ public class DanePacjentaController {
         this.userRepository = userRepository;
     }
 
-    // Widok formularza zmiany hasła
+
     @GetMapping("/pacjent/dane_osobowe")
     public String showDaneOsoboweForm(@SessionAttribute(value ="loggedInUser", required = false) String loggedInUser, Model model) {
         // Jeśli użytkownik nie jest zalogowany, przekieruj go na stronę logowania

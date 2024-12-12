@@ -37,4 +37,34 @@ public class DanePacjentaService {
 
         return new DanePacjentaDTO(imie, nazwisko, pesel, dataUrodzenia, numerTelefonu, email, miasto, ulica, nrBudynku, nrLokalu, kodPocztowy);
     }
+
+    public void edycjaDanych(Long iduser, String imie, String nazwisko, String pesel, String numerTel, String email, String dataUrodzenia,
+                             String miasto, String ulica, String nrBudynku, String nrLokalu, String kodPocztowy){
+
+        // Pobierz ID pacjenta
+        Long idPacjent = pacjentRepository.getIdPacjentByIdUser(iduser);
+
+        if(!(email.equals(userRepository.getEmailById(iduser))))
+        {
+            if (userRepository.existsByEmail(email)) {
+                throw new RuntimeException("Podany email jest już zarejestrowany.");
+            }
+        }
+
+        if(!(pesel.equals(pacjentRepository.getPeseltByIdPacjent(idPacjent))))
+        {
+            if (pacjentRepository.existsByPesel(pesel)) {
+                throw new RuntimeException("Podany pesel jest już zarejestrowany.");
+            }
+        }
+
+        // edytuj użytkownika
+        userRepository.saveDane(iduser, imie, nazwisko, email);
+
+        // edytuj pacjenta
+        pacjentRepository.saveDane(iduser, pesel, dataUrodzenia, numerTel);
+
+        // edytuj adres pacjenta
+        adresRepository.saveDane(idPacjent, miasto, ulica, nrBudynku, nrLokalu, kodPocztowy);
+    }
 }

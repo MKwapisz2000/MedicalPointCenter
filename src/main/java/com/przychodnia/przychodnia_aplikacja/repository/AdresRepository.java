@@ -100,4 +100,23 @@ public class AdresRepository {
 
         return jdbcTemplate.queryForObject(sql, params, String.class);
     }
+
+    // Zmiana danych użytkownika
+    public void saveDane(Long idpacjent, String miasto, String ulica, String nr_budynku, String nr_lokalu, String kod_pocztowy) {
+        String sql = """
+                    UPDATE adres SET miasto = :miasto, ulica = :ulica, nr_budynku = :nr_budynku, nr_lokalu = :nr_lokalu, kod_pocztowy = :kod_pocztowy
+                     WHERE idpacjent = :idpacjent
+                """;
+        Map<String, Object> params = new HashMap<>();
+        params.put("miasto", miasto);
+        params.put("ulica", ulica);
+        params.put("nrBudynku", nr_budynku);
+        params.put("nrLokalu", nr_lokalu);
+        params.put("kodPocztowy", kod_pocztowy);
+        params.put("idpacjent", idpacjent);
+
+        // Wstawienie adresu do bazy danych
+        jdbcTemplate.update(sql, params);
+    }
+
 }

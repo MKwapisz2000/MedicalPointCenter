@@ -53,7 +53,7 @@ public class ZmianaHaslaController {
             Long idUser = userRepository.getIDByEmail(loggedInUser);
             zmianaHaslaService.zmianaHasla(noweHaslo, idUser);
             model.addAttribute("successMessage", "Hasło zostało zmienione.");
-            return "zmiana_hasla";  // Możesz przekierować na inną stronę, jeśli chcesz
+            return "zmiana_hasla";
 
         } catch (Exception e) {
 

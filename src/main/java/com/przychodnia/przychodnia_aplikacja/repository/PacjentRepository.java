@@ -74,4 +74,18 @@ public class PacjentRepository {
 
         return jdbcTemplate.queryForObject(sql, params, String.class);
     }
+
+    public void saveDane(Long iduser, String pesel, String data_urodzenia, String numer_tel) {
+        String sql = """
+                    UPDATE pacjent SET pesel = :pesel, data_urodzenia = :data_urodzenia, numer_tel = :numer_tel WHERE iduser = :iduser
+                """;
+        Map<String, Object> params = new HashMap<>();
+        params.put("pesel", pesel);
+        params.put("data_urodzenia", data_urodzenia);
+        params.put("numer_tel", numer_tel);
+        params.put("iduser", iduser);
+
+        // Wstawienie użytkownika do bazy danych
+        jdbcTemplate.update(sql, params);
+    }
 }

@@ -131,4 +131,19 @@ public class UserRepository {
         // Wstawienie użytkownika do bazy danych
         jdbcTemplate.update(sql, params);
     }
+
+    // Zmiana danych użytkownika
+    public void saveDane(Long iduser, String imie, String nazwisko, String email) {
+        String sql = """
+                    UPDATE user SET imie = :imie, nazwisko = :nazwisko, email = :email WHERE iduser = :iduser
+                """;
+        Map<String, Object> params = new HashMap<>();
+        params.put("imie", imie);
+        params.put("nazwisko", nazwisko);
+        params.put("email", email);
+        params.put("iduser", iduser);
+
+        // Wstawienie użytkownika do bazy danych
+        jdbcTemplate.update(sql, params);
+    }
 }
