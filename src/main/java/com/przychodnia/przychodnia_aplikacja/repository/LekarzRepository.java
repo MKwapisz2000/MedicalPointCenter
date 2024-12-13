@@ -24,4 +24,16 @@ public class LekarzRepository {
 
         return jdbcTemplate.queryForObject(sql, params, Long.class);
     }
+
+    // Zapis nowego lekarza
+    public void saveLekarz(Long iduser) {
+        String sql = """
+            INSERT INTO lekarz (iduser)
+            VALUES (:iduser)
+        """;
+        Map<String, Object> params = new HashMap<>();
+        params.put("iduser", iduser);
+
+        jdbcTemplate.update(sql, params);
+    }
 }
