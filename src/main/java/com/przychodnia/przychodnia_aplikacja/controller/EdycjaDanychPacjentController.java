@@ -91,7 +91,7 @@ public class EdycjaDanychPacjentController {
             danePacjentaService.edycjaDanych(idUser, imie, nazwisko, pesel, numerTel, email, dataUrodzenia,
                     miasto, ulica, nrBudynku, nrLokalu, kodPocztowy);
             redirectAttributes.addFlashAttribute("successMessage", "Dane zostały zmienione");
-            return "redirect:/pacjent/edycja_danych";
+            return "pacjent/edycja_danych";
 
         } catch (RuntimeException e) {
             // Obsługa błędów i przekazywanie komunikatów do widoku

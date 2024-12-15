@@ -146,4 +146,17 @@ public class UserRepository {
         // Wstawienie użytkownika do bazy danych
         jdbcTemplate.update(sql, params);
     }
+
+    // Dezaktywacja użytkownika
+    public void dez_aktywacja(String email, String action){
+        String sql = """
+                    UPDATE user SET status = :status WHERE email = :email
+                """;
+        Map<String, Object> params = new HashMap<>();
+        params.put("status", action);
+        params.put("email", email);
+
+        // Wstawienie użytkownika do bazy danych
+        jdbcTemplate.update(sql, params);
+    }
 }

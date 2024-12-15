@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Godziny pracy lekarza</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        .remove-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Dodaj godziny pracy</h1>
+
+<div th:if="${successMessage}" style="color: green; font-weight: bold;" th:text="${successMessage}"></div>
+<div th:if="${validationError}" style="color: red;" th:text="${validationError}"></div>
+
+<form action="/lekarz/godziny_pracy" method="post">
+    <table id="timeTable">
+        <thead>
+        <tr>
+            <th>Data</th>
+            <th>Godzina rozpoczęcia</th>
+            <th>Godzina zakończenia</th>
+            <th>Usuń</th>
+        </tr>
+        </thead>
+        <tbody id="timeEntries">
+        <tr>
+            <td><input type="date" name="data" /></td>
+            <td><input type="time" name="godzina_startowa" /></td>
+            <td><input type="time" name="godzina_koncowa" /></td>
+            <td><button type="button" class="remove-button" onclick="removeTimeEntry(this)">Usuń</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="button" onclick="addTimeEntry()">Dodaj godziny</button><br><br>
+    <button type="submit">Zapisz godziny pracy</button>
+</form>
+
+<script>
+    function addTimeEntry() {
+        const timeEntriesTbody = document.getElementById('timeEntries');
+        const newRow = document.createElement('tr');
+
+        const dateCell = document.createElement('td');
+        const startTimeCell = document.createElement('td');
+        const endTimeCell = document.createElement('td');
+        const removeButtonCell = document.createElement('td');
+
+        const dateInput = document.createElement('input');
+        dateInput.type = 'date';
+        dateInput.name = 'data';
+
+        const startTimeInput = document.createElement('input');
+        startTimeInput.type = 'time';
+        startTimeInput.name = 'godzina_startowa';
+
+        const endTimeInput = document.createElement('input');
+        endTimeInput.type = 'time';
+        endTimeInput.name = 'godzina_koncowa';
+
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.className = 'remove-button';
+        removeButton.textContent = 'Usuń';
+        removeButton.onclick = function () {
+            removeTimeEntry(removeButton);
+        };
+
+        dateCell.appendChild(dateInput);
+        startTimeCell.appendChild(startTimeInput);
+        endTimeCell.appendChild(endTimeInput);
+        removeButtonCell.appendChild(removeButton);
+
+        newRow.appendChild(dateCell);
+        newRow.appendChild(startTimeCell);
+        newRow.appendChild(endTimeCell);
+        newRow.appendChild(removeButtonCell);
+
+        timeEntriesTbody.appendChild(newRow);
+    }
+
+    function removeTimeEntry(button) {
+        const row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+</script>
+
+</body>
+</html>
