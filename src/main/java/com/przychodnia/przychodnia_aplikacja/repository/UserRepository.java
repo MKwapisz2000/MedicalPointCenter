@@ -1,10 +1,12 @@
 package com.przychodnia.przychodnia_aplikacja.repository;
 
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.swing.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -96,6 +98,41 @@ public class UserRepository {
 
         return jdbcTemplate.queryForObject(sql, params, String.class);
     }
+
+    // Pobranie imion lekarzy na podstawie listy userów
+    public List<String> getImionaByIdUser(List<Long> idUser) {
+        // Zapytanie SQL do pobrania imion i nazwisk użytkowników
+        String sql = "SELECT imie FROM user WHERE iduser IN (:iduser)";
+
+        // Mapowanie parametrów
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("iduser", idUser);
+
+        // Wykonanie zapytania
+        return jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> rs.getString("imie")
+        );
+    }
+
+    // Pobranie imion lekarzy na podstawie listy userów
+    public List<String> getNazwiskaByIdUser(List<Long> idUser) {
+        // Zapytanie SQL do pobrania imion i nazwisk użytkowników
+        String sql = "SELECT nazwisko FROM user WHERE iduser IN (:iduser)";
+
+        // Mapowanie parametrów
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("iduser", idUser);
+
+        // Wykonanie zapytania
+        return jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> rs.getString("nazwisko")
+        );
+    }
+
 
     // Zapis nowego użytkownika
     public Long saveUser(String imie, String nazwisko, String email, String haslo, String typ, String status) {

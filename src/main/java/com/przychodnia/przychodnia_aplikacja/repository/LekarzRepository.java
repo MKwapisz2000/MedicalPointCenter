@@ -1,9 +1,11 @@
 package com.przychodnia.przychodnia_aplikacja.repository;
 
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -36,4 +38,24 @@ public class LekarzRepository {
 
         jdbcTemplate.update(sql, params);
     }
+
+    // Pobierz listę ID userów o danych idlekarzy
+    public List<Long> getIdUserByIdLekarz(List<Long> idLekarz) {
+        // Zapytanie SQL z JOIN między tabelami lekarz i user, z filtrowaniem po statusie
+        String sql = "SELECT l.iduser " +
+                "FROM lekarz l " +
+                "JOIN user u ON l.iduser = u.iduser " +
+                "WHERE l.idlekarz IN (:idlekarz) " +
+                "AND u.status = 'AKTYWNY'";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("idlekarz", idLekarz);
+
+        return jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> rs.getLong("iduser")
+        );
+    }
+
 }

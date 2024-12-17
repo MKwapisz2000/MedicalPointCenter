@@ -50,6 +50,15 @@ public class RejestracjaController {
                 return "rejestracja"; // Wróć do formularza, gdy regulamin nie jest zaakceptowany
             }
 
+            //Sprawdzenie czy wymagane pola są wypełnione
+            if (imie.isEmpty() || nazwisko.isEmpty() || pesel.isEmpty() || numerTel.isEmpty() ||
+                    email.isEmpty() || haslo.isEmpty() || dataUrodzenia.isEmpty() || miasto.isEmpty() || ulica.isEmpty() ||
+                    nrBudynku.isEmpty() || kodPocztowy.isEmpty()) {
+
+                model.addAttribute("validationError", "Wszystkie pola z wyjątkiem numerem lokalu muszą być wypełnione");
+                return "rejestracja";
+            }
+
             // Próba rejestracji
             rejestracjaService.rejestracjaNewPatient(imie, nazwisko, pesel, numerTel, email, haslo, dataUrodzenia, miasto, ulica, nrBudynku, nrLokalu, kodPocztowy);
             session.setAttribute("rejestrationSuccess", true); // Przechowywanie w sesji

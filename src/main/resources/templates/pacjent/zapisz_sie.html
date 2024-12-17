@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wybór specjalizacji</title>
+</head>
+<body>
+
+<h1>Wybierz specjalizację lekrza</h1>
+
+<div th:if="${successMessage}" style="color: green; font-weight: bold;" th:text="${successMessage}"></div>
+<div th:if="${validationError}" style="color: red;" th:text="${validationError}"></div>
+
+<form action="/pacjent/zapisz_sie" method="post">
+    <label for="specjalizacja">Wybierz specjalizację:</label>
+    <select id="specjalizacja" name="specjalizacja">
+        <option value="kardiolog">Kardiolog</option>
+        <option value="dermatolog">Dermatolog</option>
+        <option value="ortopeda">Ortopeda</option>
+        <option value="endokrynolog">Endokrynolog</option>
+        <option value="ginekolog">Ginekolog</option>
+        <option value="okulista">Okulista</option>
+        <option value="optometrysta">Optometrysta</option>
+        <option value="pediatra">Pediatra</option>
+        <option value="neurolog">Neurolog</option>
+        <option value="stomatolog">Stomatolog</option>
+    </select>
+
+    <button type="submit">Szukaj</button>
+</form>
+
+</body>
+</html>

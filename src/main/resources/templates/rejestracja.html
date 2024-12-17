@@ -9,6 +9,8 @@
 
 <h1>Rejestracja</h1>
 
+<div th:if="${validationError}" style="color: red;" th:text="${validationError}"></div>
+
 <form action="/rejestracja" method="post">
     <label for="imie">Imię:</label>
     <input type="text" id="imie" name="imie" /><br><br>

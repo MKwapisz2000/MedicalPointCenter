@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia wizyt</title>
+</head>
+<body>
+
+<h1>Historia wizyt</h1>
+
+<div th:if="${successMessage}" style="color: green; font-weight: bold;" th:text="${successMessage}"></div>
+<div th:if="${validationError}" style="color: red;" th:text="${validationError}"></div>
+
+<form action="/pacjent/historia_wizyt" method="post">
+
+    <h2>Nadchodzące:</h2>
+
+
+    <h2>Odbyte:</h2>
+
+
+
+</form>
+
+
+</body>
+</html>

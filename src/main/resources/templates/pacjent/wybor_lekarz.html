@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wybór lekarza</title>
+</head>
+<body>
+
+<h1>Wybierz lekarza</h1>
+
+<div th:if="${successMessage}" style="color: green; font-weight: bold;" th:text="${successMessage}"></div>
+<div th:if="${validationError}" style="color: red;" th:text="${validationError}"></div>
+
+<form action="/pacjent/wybor_lekarz" method="post">
+    <div>
+        <ul>
+            <!-- Iteracja po liście lekarzy -->
+            <li th:each="lekarz : ${lekarze}">
+                <input type="radio" th:id="'lekarz_' + ${lekarz.idLekarza}"
+                       th:name="idLekarza" th:value="${lekarz.idLekarza}" />
+                <label th:for="'lekarz_' + ${lekarz.idLekarza}">
+                    <!-- Wyświetlenie imienia i nazwiska lekarza -->
+                    <span th:text="${lekarz.imie} + ' ' + ${lekarz.nazwisko}"></span>
+                </label>
+            </li>
+        </ul>
+    </div>
+    <button type="submit">Wybierz lekarza</button>
+</form>
+
+</body>
+</html>
