@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -68,23 +70,12 @@ public class WizytaService {
 
     public List<TerminyDTO> wyborTerminu(Long idlekarz) {
 
+        LocalDate dzisiaj = LocalDate.now();
+        LocalTime teraz = LocalTime.now();
+
         List<LocalDate> data = grafikLekarzRepository.getDataByIdLekarz(idlekarz);
-        System.out.println("Lista dostępnych terminów:");
-        for (LocalDate date : data) {
-            System.out.println(date); // Wyświetlamy każdą datę
-        }
-
         List<LocalTime> godzina_startowa = grafikLekarzRepository.getGodzinaStartByIdLekarz(idlekarz);
-        System.out.println("Godziny startowe dla lekarza o ID :");
-        for (LocalTime godzina : godzina_startowa) {
-            System.out.println(godzina); // Wyświetlamy każdą godzinę startową
-        }
-
         List<LocalTime> godzina_koncowa = grafikLekarzRepository.getGodzinaKoniecByIdLekarz(idlekarz);
-        System.out.println("Godziny końcowe dla lekarza o ID :");
-        for (LocalTime godzina : godzina_koncowa) {
-            System.out.println(godzina); // Wyświetlamy każdą godzinę końcową
-        }
 
         List<TerminyDTO> terminyDTO = new ArrayList<>();
 
@@ -93,10 +84,33 @@ public class WizytaService {
             LocalTime godzinaStart = godzina_startowa.get(i);
             LocalTime godzinaKoncowa = godzina_koncowa.get(i);
 
-            // Tworzymy nowy obiekt terminyDTO i dodajemy go do listy
-            TerminyDTO terminDTO = new TerminyDTO(Data, godzinaStart, godzinaKoncowa);
-            terminyDTO.add(terminDTO);
+            // Odrzucanie dat wcześniejszych niż dzisiejsza
+            if (Data.isBefore(dzisiaj)) {
+                continue;
+            }
+
+            // Jeśli data to dzisiejszy dzień, odrzuć godziny, które już minęły
+            if (Data.isEqual(dzisiaj)) {
+
+                teraz =LocalTime.now().withSecond(0).withNano(0);
+
+                godzinaStart = (godzinaStart.isBefore(teraz)) ? teraz : godzinaStart;
+            }
+
+            //Sprawdzenie czy godzina końcowa jest po godzinie startowej
+            if (godzinaStart.isBefore(godzinaKoncowa)) {
+                TerminyDTO terminDTO = new TerminyDTO(Data, godzinaStart, godzinaKoncowa);
+                terminyDTO.add(terminDTO);
+                System.out.println(terminDTO.getData());
+                System.out.println(terminDTO.getGodzina_startowa());
+                System.out.println(terminDTO.getGodzina_koncowa());
+            }
+
         }
+
+        // Sortowanie po dacie, a następnie godzinie startowej
+        terminyDTO.sort(Comparator.comparing(TerminyDTO::getData)
+                .thenComparing(TerminyDTO::getGodzina_startowa));
 
         return terminyDTO;
     }
@@ -121,6 +135,7 @@ public class WizytaService {
 
         return terminy;
     }
+
 
     public void saveWizyta(LocalTime godzina, LocalDate data, String email, Long idlekarz){
 
