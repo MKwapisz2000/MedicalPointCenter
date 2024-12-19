@@ -1,9 +1,11 @@
 package com.przychodnia.przychodnia_aplikacja.repository;
 
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -95,5 +97,20 @@ public class PacjentRepository {
         params.put("idpacjent", idPacjent);
 
         return jdbcTemplate.queryForObject(sql, params, Long.class);
+    }
+
+    public List<Long> getIdUserzyByIdPacjenci(List<Long> idPacjenci){
+        String sql = "SELECT iduser FROM pacjent WHERE idpacjent IN (:idpacjent)";
+
+        // Mapowanie parametrów
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("idpacjent", idPacjenci);
+
+        // Wykonanie zapytania
+        return jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> rs.getLong("iduser")
+        );
     }
 }

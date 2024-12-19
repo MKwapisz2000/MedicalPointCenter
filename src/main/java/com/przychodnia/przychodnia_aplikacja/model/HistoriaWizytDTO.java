@@ -18,6 +18,11 @@ public class HistoriaWizytDTO {
         this.status = status;
     }
 
+    public HistoriaWizytDTO(String status, LocalDate data) {
+        this.data = data;
+        this.status = status;
+    }
+
     public String getImieLekarz() {
         return imieLekarz;
     }

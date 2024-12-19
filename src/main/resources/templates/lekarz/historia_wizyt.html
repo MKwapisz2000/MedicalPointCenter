@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia Wizyt - Lekarz</title>
+</head>
+<body>
+<h1>Historia Wizyt Pacjentów</h1>
+
+<!-- Obsługa komunikatów o błędach -->
+<div style="color: red;">
+    <p th:if="${validationError}" th:text="${validationError}"></p>
+</div>
+
+<!-- Lista pacjentów -->
+<form action="/lekarz/historia_wizyt" method="post">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pacjent : ${dane}">
+            <td th:text="${pacjent.getImie}"></td>
+            <td th:text="${pacjent.getNazwisko}"></td>
+            <td>
+                <button type="submit" name="idPacjent" th:value="${pacjent.getIdPacjent}">
+                    Pokaż Wizyty
+                </button>
+                <input type="hidden" name="imie" th:value="${pacjent.getImie}">
+                <input type="hidden" name="nazwisko" th:value="${pacjent.getNazwisko}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+</html>

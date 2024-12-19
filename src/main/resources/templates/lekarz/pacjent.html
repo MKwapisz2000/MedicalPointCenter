@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia Wizyt Pacjenta</title>
+</head>
+<body>
+<h1>Historia Wizyt Pacjenta:</h1>
+
+<!-- Obsługa komunikatów o błędach -->
+<div style="color: red;">
+    <p th:if="${validationError}" th:text="${validationError}"></p>
+</div>
+
+<!-- Lista wizyt -->
+<h2>Wizyty Pacjenta</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Data Wizyty</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="data : ${historiaWizyt}">
+        <td th:text="${data}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/lekarz/historia_wizyt">Wróć do listy pacjentów</a>
+</body>
+</html>

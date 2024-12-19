@@ -12,6 +12,7 @@ public class DanePacjentaDTO {
     private String nrBudynku;
     private String nrLokalu;
     private String kodPocztowy;
+    private Long idPacjent;
 
     public DanePacjentaDTO(String imie, String nazwisko, String pesel, String dataUrodzenia, String numerTelefonu, String email, String miasto, String ulica, String nrBudynku, String nrLokalu, String kodPocztowy) {
         this.imie = imie;
@@ -25,6 +26,27 @@ public class DanePacjentaDTO {
         this.nrBudynku = nrBudynku;
         this.nrLokalu = nrLokalu;
         this.kodPocztowy = kodPocztowy;
+    }
+
+    public Long getIdPacjent() {
+        return idPacjent;
+    }
+
+    public void setIdPacjent(Long idPacjent) {
+        this.idPacjent = idPacjent;
+    }
+
+    public DanePacjentaDTO(Long idPacjent, String imie, String nazwisko) {
+        this.idPacjent = idPacjent;
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+    }
+
+    public DanePacjentaDTO(String imie, String nazwisko, String pesel, String dataUrodzenia) {
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.pesel = pesel;
+        this.dataUrodzenia = dataUrodzenia;
     }
 
     public String getImie() {

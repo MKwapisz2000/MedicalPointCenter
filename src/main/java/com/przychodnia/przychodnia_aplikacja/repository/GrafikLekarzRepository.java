@@ -7,10 +7,7 @@ import org.w3c.dom.ls.LSException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class GrafikLekarzRepository {
@@ -185,6 +182,46 @@ public class GrafikLekarzRepository {
         return jdbcTemplate.queryForObject(sql, params, LocalDate.class);
 
     }
+
+    public List<Long> getIdGrafikiByIdLekarz(Long idLekarz){
+
+        String sql = "SELECT id FROM grafik_lekarz WHERE idlekarz = :idlekarz";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("idlekarz", idLekarz);
+
+            return jdbcTemplate.query(
+                    sql,
+                    params,
+                    (rs, rowNum) -> rs.getLong("id")
+            );
+
+    }
+
+    public List<LocalDate> getDataByIdIdLekarzData(List<Long> idGrafiki, Long idLekarz, LocalDate data){
+        if (idGrafiki == null || idGrafiki.isEmpty()) {
+            return new ArrayList<>(); // Zwróć pustą listę, jeśli brak grafików
+        }
+        String sql = "SELECT data FROM grafik_lekarz WHERE id IN (:id) AND idlekarz = :idlekarz AND data < :data";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", idGrafiki);
+        params.addValue("idlekarz", idLekarz);
+        params.addValue("data", data);
+
+        return jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> {
+                    // Pobranie daty w formacie SQL
+                    java.sql.Date sqlDate = rs.getDate("data");
+                    // Jeśli data jest null, zwracamy null, w przeciwnym razie konwertujemy ją na LocalDate
+                    return sqlDate != null ? sqlDate.toLocalDate() : null;
+                }
+            );
+
+    }
+
 
 
 

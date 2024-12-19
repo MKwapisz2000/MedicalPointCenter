@@ -160,6 +160,47 @@ public class WizytaRepository {
 
     }
 
+    public List<Long> getIdPacjentByIdGrafiki(List<Long> idgrafiki){
+        String sql = "SELECT idpacjent FROM wizyta WHERE idgrafik IN (:idgrafik)";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("idgrafik", idgrafiki);
+
+        return jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> rs.getLong("idpacjent")
+        );
+    }
+
+    public void updateStatusByIdAndGrafiki(List<Long> idPacjenci, List<Long> idGarfiki){
+        String status = "ODBYTA";
+        String sql = """
+                    UPDATE wizyta SET status = :status WHERE idpacjent IN (:idpacjent) AND idgrafik IN (:idgrafik)
+                """;
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("status", status);
+        params.addValue("idpacjent", idPacjenci);
+        params.addValue("idgrafik", idGarfiki);
+
+        // Wstawienie użytkownika do bazy danych
+        jdbcTemplate.update(sql, params);
+
+    }
+
+    public List<Long> getIdGrafikiByIdPacjent(Long idpacjent){
+
+        String sql = "SELECT idgrafik FROM wizyta WHERE idpacjent = :idpacjent";
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("idpacjent", idpacjent);
+
+        return jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> rs.getLong("idgrafik")
+        );
+    }
+
 
 
 }

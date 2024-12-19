@@ -63,17 +63,6 @@ public class HistoriaWizytService {
         for(Long id : idLekarzy){
             System.out.println(id);
         }
-/*
-        //Lista iduserow na podstawie idlekarzy
-        List<Long> idUser_Lekarze = new ArrayList<>();
-        for(Long id : idGrafiki){
-            idLekarzy.add(grafikLekarzRepository.getIdLekrazbyId(id));
-        }
-        System.out.println("id lekarze:");
-        for(Long id : idLekarzy){
-            System.out.println(id);
-        }
-*/
 
         //lista imion lekarzy na podstawie idlekarzy
         List<String> imiona = new ArrayList<>();
