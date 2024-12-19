@@ -58,4 +58,74 @@ public class LekarzRepository {
         );
     }
 
+    // Pobranie id userow na podstawie listy lekarzy
+    public List<Long> getIdUserowByIdLekarz(List<Long> idlekarz) {
+
+        String sql = "SELECT iduser FROM lekarz WHERE idlekarz IN (:idlekarz)";
+
+        // Mapowanie parametrów
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("idlekarz", idlekarz);
+
+        // Wykonanie zapytania
+        return jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> rs.getLong("iduser")
+        );
+    }
+
+    // Pobranie id lekarzy
+    public List<Long> getAllId() {
+
+        String sql = "SELECT idlekarz FROM lekarz";
+
+
+        // Wykonanie zapytania
+        return jdbcTemplate.query(
+                sql,
+                (rs, rowNum) -> rs.getLong("idlekarz")
+        );
+    }
+
+    public List<Long> getIdLekarzeByIdUserzy(List<Long> iduserzy){
+        String sql = "SELECT idlekarz FROM lekarz WHERE iduser IN (:iduser)";
+
+        // Mapowanie parametrów
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("iduser", iduserzy);
+
+        // Wykonanie zapytania
+        return jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> rs.getLong("idlekarz")
+        );
+    }
+
+    // Metoda mapująca idLekarze -> idUserzy
+    public Map<Long, Long> getMappingIdGrafikToIdLekarz(List<Long> idGrafiki) {
+        String sql = "SELECT id, idlekarz " +
+                "FROM grafik_lekarz " +
+                "WHERE id IN (:id)";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", idGrafiki);
+
+        // Wykonanie zapytania i mapowanie wyników do mapy
+        return jdbcTemplate.query(sql, params, rs -> {
+            Map<Long, Long> result = new HashMap<>();
+            while (rs.next()) {
+                result.put(rs.getLong("idgrafik"), rs.getLong("idlekarz"));
+            }
+            return result;
+        });
+    }
+
+
+
+
+
+
+
 }

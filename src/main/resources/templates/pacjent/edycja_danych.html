@@ -16,45 +16,45 @@
 
 <h2>Informacje osobiste:</h2>
     <label for="imie">Imię:</label>
-    <input type="text" id="imie" name="imie" th:value="${danePacjenta.imie}" /><br>
+    <input type="text" id="imie" name="imie" th:value="${danePacjenta.getImie}" /><br>
 
     <label for="nazwisko">Nazwisko:</label>
-    <input type="text" id="nazwisko" name="nazwisko" th:value="${danePacjenta.nazwisko}" /><br>
+    <input type="text" id="nazwisko" name="nazwisko" th:value="${danePacjenta.getNazwisko}" /><br>
 
     <label for="pesel">Pesel:</label>
-    <input type="text" id="pesel" name="pesel" th:value="${danePacjenta.pesel}" />
+    <input type="text" id="pesel" name="pesel" th:value="${danePacjenta.getPesel}" />
     <span th:if="${peselError}" style="color: red;" th:text="${peselError}"></span><br>
 
     <br>
     <label for="dataUrodzenia">Data urodzenia:</label>
-    <input type="date" id="dataUrodzenia" name="dataUrodzenia" th:value="${danePacjenta.dataUrodzenia}" /><br>
+    <input type="date" id="dataUrodzenia" name="dataUrodzenia" th:value="${danePacjenta.getDataUrodzenia}" /><br>
 <br><br>
 
 <h2>Adres:</h2>
     <label for="ulica">Ulica:</label>
-    <input type="text" id="ulica" name="ulica" th:value="${danePacjenta.ulica}" /><br>
+    <input type="text" id="ulica" name="ulica" th:value="${danePacjenta.getUlica}" /><br>
 
     <label for="nrBudynku">Numer budynku:</label>
-    <input type="text" id="nrBudynku" name="nrBudynku" th:value="${danePacjenta.nrBudynku}" /><br>
+    <input type="text" id="nrBudynku" name="nrBudynku" th:value="${danePacjenta.getNrBudynku}" /><br>
 
     <label for="nrLokalu">Numer lokalu:</label>
-    <input type="text" id="nrLokalu" name="nrLokalu" th:value="${danePacjenta.nrLokalu}" /><br>
+    <input type="text" id="nrLokalu" name="nrLokalu" th:value="${danePacjenta.getNrLokalu}" /><br>
 
     <label for="miasto">Miasto:</label>
-    <input type="text" id="miasto" name="miasto" th:value="${danePacjenta.miasto}" /><br>
+    <input type="text" id="miasto" name="miasto" th:value="${danePacjenta.getMiasto}" /><br>
 
     <label for="kodPocztowy">Kod pocztowy:</label>
-    <input type="text" id="kodPocztowy" name="kodPocztowy" th:value="${danePacjenta.kodPocztowy}" /><br>
+    <input type="text" id="kodPocztowy" name="kodPocztowy" th:value="${danePacjenta.getKodPocztowy}" /><br>
     <br><br>
 
 <h2>Dane kontaktowe:</h2>
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" th:value="${danePacjenta.email}" />
+    <input type="email" id="email" name="email" th:value="${danePacjenta.getEmail}" />
     <span th:if="${emailError}" style="color: red;" th:text="${emailError}"></span><br>
 
     <br>
     <label for="numerTel">Numer telefonu:</label>
-    <input type="text" id="numerTel" name="numerTel" th:value="${danePacjenta.numerTelefonu}" /><br>
+    <input type="text" id="numerTel" name="numerTel" th:value="${danePacjenta.getNumerTelefonu}" /><br>
 <br><br>
 
 <button type="submit">Edytuj dane</button>

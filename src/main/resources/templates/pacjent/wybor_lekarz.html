@@ -17,11 +17,11 @@
         <ul>
             <!-- Iteracja po liście lekarzy -->
             <li th:each="lekarz : ${lekarze}">
-                <input type="radio" th:id="'lekarz_' + ${lekarz.idLekarza}"
-                       th:name="idLekarza" th:value="${lekarz.idLekarza}" />
-                <label th:for="'lekarz_' + ${lekarz.idLekarza}">
+                <input type="radio" th:id="'lekarz_' + ${lekarz.getIdLekarza}"
+                       th:name="idLekarza" th:value="${lekarz.getIdLekarza}" />
+                <label th:for="'lekarz_' + ${lekarz.getIdLekarza}">
                     <!-- Wyświetlenie imienia i nazwiska lekarza -->
-                    <span th:text="${lekarz.imie} + ' ' + ${lekarz.nazwisko}"></span>
+                    <span th:text="${lekarz.getImie} + ' ' + ${lekarz.getNazwisko}"></span>
                 </label>
             </li>
         </ul>

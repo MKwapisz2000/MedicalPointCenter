@@ -97,13 +97,98 @@ public class GrafikLekarzRepository {
     }
 
     public Long getIdGrafik(Long idlekarz, LocalDate data){
-        String sql = "SELECT id FROM grafik_lekarz WHERE idlekarz = :idlekarz AND data = :data";
+        String sql = "SELECT id FROM grafik_lekarz WHERE idlekarz = :idlekarz AND data = :data LIMIT 1";
         Map<String, Object> params = new HashMap<>();
         params.put("idlekarz", idlekarz);
         params.put("data", data);
 
         return jdbcTemplate.queryForObject(sql, params, Long.class);
     }
+
+    //lista id lekarzy na podstawie id grafiku
+    public List<Long> getIdLekarzByIdGrafik(List<Long> idgrafik) {
+        String sql = "SELECT idlekarz FROM grafik_lekarz WHERE id IN (:id)";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", idgrafik);
+
+        return jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> rs.getLong("idlekarz")
+        );
+    }
+
+    //lista dat na podstawie id grafiku
+    public List<LocalDate> getDataByIdGrafik(List<Long> idgrafik) {
+        String sql = "SELECT data FROM grafik_lekarz WHERE id IN (:id)";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", idgrafik);
+
+        return jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> {
+                    // Pobranie daty w formacie SQL
+                    java.sql.Date sqlDate = rs.getDate("data");
+                    // Jeśli data jest null, zwracamy null, w przeciwnym razie konwertujemy ją na LocalDate
+                    return sqlDate != null ? sqlDate.toLocalDate() : null;
+                }
+        );
+
+    }
+
+    //czy istnieje data na podstawie id grafiku i danej daty
+    public boolean existDataByIdGrafikData(List<Long> idgrafik, LocalDate data) {
+        String sql = "SELECT COUNT(*) > 0 FROM grafik_lekarz WHERE id IN (:id) AND data = :data";
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", idgrafik);
+        params.addValue("data", data);
+
+        return jdbcTemplate.queryForObject(sql, params, Boolean.class);
+    }
+
+    // Metoda mapująca idGrafiku -> idLekarza
+    public Map<Long, Long> getMappingIdGrafikToIdLekarz(List<Long> idGrafiki) {
+        String sql = "SELECT id, idlekarz " +
+                "FROM grafik_lekarz " +
+                "WHERE id IN (:id)";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", idGrafiki);
+
+        // Wykonanie zapytania i mapowanie wyników do mapy
+        return jdbcTemplate.query(sql, params, rs -> {
+            Map<Long, Long> result = new HashMap<>();
+            while (rs.next()) {
+                result.put(rs.getLong("idgrafik"), rs.getLong("idlekarz"));
+            }
+            return result;
+        });
+    }
+
+    public Long getIdLekrazbyId(Long id){
+            String sql = "SELECT idlekarz FROM grafik_lekarz WHERE id = :id";
+            Map<String, Object> params = new HashMap<>();
+            params.put("id", id);
+
+            return jdbcTemplate.queryForObject(sql, params, Long.class);
+
+    }
+
+    public LocalDate getDataById(Long id){
+        String sql = "SELECT data FROM grafik_lekarz WHERE id = :id";
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+
+        return jdbcTemplate.queryForObject(sql, params, LocalDate.class);
+
+    }
+
+
+
+
 
 
 }

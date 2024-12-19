@@ -10,19 +10,31 @@
 <h1>Historia wizyt</h1>
 
 <div th:if="${successMessage}" style="color: green; font-weight: bold;" th:text="${successMessage}"></div>
-<div th:if="${validationError}" style="color: red;" th:text="${validationError}"></div>
+<div th:if="${validationError}" style="color: black;" th:text="${validationError}"></div>
 
-<form action="/pacjent/historia_wizyt" method="post">
+<h2>Nadchodzące:</h2>
+<div th:if="${nadchodzace == null or nadchodzace.isEmpty()}">
+    <p>Brak nadchodzących wizyt.</p>
+</div>
+<ul th:if="${nadchodzace != null and not nadchodzace.isEmpty()}">
+    <li th:each="wizyta : ${nadchodzace}">
+        Lekarz: <span th:text="${wizyta.getImieLekarz}"></span> <span th:text="${wizyta.getNazwiskoLekarz}"></span>,
+        Data: <span th:text="${wizyta.getData}"></span>,
+        Godzina: <span th:text="${wizyta.getGodzina}"></span>
+    </li>
+</ul>
 
-    <h2>Nadchodzące:</h2>
-
-
-    <h2>Odbyte:</h2>
-
-
-
-</form>
-
+<h2>Odbyte:</h2>
+<div th:if="${odbyte == null or odbyte.isEmpty()}">
+    <p>Brak odbytch wizyt.</p>
+</div>
+<ul th:if="${odbyte != null and not odbyte.isEmpty()}">
+    <li th:each="wizyta : ${odbyte}">
+        Lekarz: <span th:text="${wizyta.getImieLekarz}"></span> <span th:text="${wizyta.getNazwiskoLekarz}"></span>,
+        Data: <span th:text="${wizyta.getData}"></span>,
+        Godzina: <span th:text="${wizyta.getGodzina}"></span>
+    </li>
+</ul>
 
 </body>
 </html>

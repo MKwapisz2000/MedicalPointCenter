@@ -63,6 +63,46 @@ public class SpecjalizacjaRepository {
         return jdbcTemplate.queryForObject(sql, params, Boolean.class);
     }
 
+    public List<String> getSpecByIdLekarzy(List<Long> idlekarz) {
+        // Zapytanie SQL do pobrania imion i nazwisk użytkowników
+        String sql = "SELECT spec FROM specjalizacja WHERE idlekarz IN (:idlekarz)";
+
+        // Mapowanie parametrów
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("idlekarz", idlekarz);
+
+        // Wykonanie zapytania
+        return jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> rs.getString("spec")
+        );
+    }
+
+    public List<String> getSpecByIdLekarzyConcat(List<Long> idlekarz) {
+        // Zapytanie SQL do pobrania specjalizacji lekarzy, połączonych w jeden string
+        String sql = """
+        SELECT idlekarz, GROUP_CONCAT(spec SEPARATOR ', ') AS spec
+        FROM specjalizacja
+        WHERE idlekarz IN (:idlekarz)
+        GROUP BY idlekarz
+    """;
+
+        // Mapowanie parametrów
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("idlekarz", idlekarz);
+
+        // Wykonanie zapytania i zwrócenie listy połączonych specjalizacji dla każdego lekarza
+        return jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> rs.getString("spec")
+        );
+    }
+
+
+
+
 
 
 

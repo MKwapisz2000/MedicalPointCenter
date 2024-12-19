@@ -104,6 +104,8 @@ public class WizytaController {
             return "pacjent/lekarz_godziny";
 
         } catch (RuntimeException e) {
+            System.err.println("Błąd: " + e.getMessage());
+            e.printStackTrace();
             model.addAttribute("validationError", "Wystąpił błąd: " + e.getMessage());
 
             return "pacjent/lekarz_godziny";
@@ -145,7 +147,9 @@ public class WizytaController {
 
         } catch (RuntimeException e) {
             model.addAttribute("validationError", "Wystąpił błąd: " + e.getMessage());
-
+            if (e.getMessage().contains("zapisany")) {
+                model.addAttribute("validationError", e.getMessage());
+            }
             return "pacjent/lekarz_godziny";
         }
     }

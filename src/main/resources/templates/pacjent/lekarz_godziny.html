@@ -16,12 +16,12 @@
         <ul>
             <!-- Iteracja po dostępnych datach -->
             <li th:each="termin : ${terminy}">
-                <h3 th:text="'Data: ' + ${termin.data}"></h3>
+                <h3 th:text="'Data: ' + ${termin.getData}"></h3>
                 <ul>
                     <!-- Lista godzin dla każdej daty -->
-                    <li th:each="godzina : ${termin.dostepneGodziny}">
+                    <li th:each="godzina : ${termin.getDostepneGodziny}">
                         <form action="/pacjent/lekarz_godziny" method="post">
-                            <input type="hidden" th:value="${termin.data}" name="data" />
+                            <input type="hidden" th:value="${termin.getData}" name="data" />
                             <input type="hidden" th:value="${godzina}" name="godzina" />
                             <input type="hidden" th:value="${idlekarz}" name="idlekarz" />
                             <button type="submit" th:text="${godzina}"></button>

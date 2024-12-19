@@ -101,9 +101,6 @@ public class WizytaService {
             if (godzinaStart.isBefore(godzinaKoncowa)) {
                 TerminyDTO terminDTO = new TerminyDTO(Data, godzinaStart, godzinaKoncowa);
                 terminyDTO.add(terminDTO);
-                System.out.println(terminDTO.getData());
-                System.out.println(terminDTO.getGodzina_startowa());
-                System.out.println(terminDTO.getGodzina_koncowa());
             }
 
         }
@@ -138,13 +135,36 @@ public class WizytaService {
 
 
     public void saveWizyta(LocalTime godzina, LocalDate data, String email, Long idlekarz){
+        //Przed zapisem terminu do bazy danych, sprawdzenie czy pacjent nie jest zapisany u innego lekarze w przedziale
+        //godzina-20minut : godzina+20minut
 
         Long idUser = userRepository.getIDByEmail(email);
         Long idPacjent = pacjentRepository.getIdPacjentByIdUser(idUser);
+
+        //id grafiku dla wizyty
         Long idgrafik = grafikLekarzRepository.getIdGrafik(idlekarz, data);
 
-        wizytaRepository.saveWizyta(idPacjent, idgrafik, "ZAREZERWOWANA", godzina);
+        //pobranie listy idgrafiku dla wierszy o idpacjent, godzinie w przedziale termin+-20minut i statusie ZAREZERWOWANA
+        List<Long> idGrafiki = wizytaRepository.getIdGrafikListByidPacjentStatusGodzina(idPacjent,"ZAREZERWOWANA", godzina);
+        System.out.println("zapisano");
+
+
+        //jezeli lista jest pusta mozemy zapisac termin
+        if(idGrafiki.isEmpty()){
+
+            wizytaRepository.saveWizyta(idPacjent, idgrafik, "ZAREZERWOWANA", godzina);
+
+        }
+
+        else{
+            //czy istnieje data terminu pacjenta w grafik_lekarz
+            if(!(grafikLekarzRepository.existDataByIdGrafikData(idGrafiki, data))){
+                wizytaRepository.saveWizyta(idPacjent, idgrafik, "ZAREZERWOWANA", godzina);
+                System.out.println("if(!(grafikLekarzRepository.existDataByIdGrafikData(idGrafiki, data)))");
+            }
+            else{
+                throw new RuntimeException("Jesteś zapisany w tym czasie u innego specjalisty, wybierz inną godzinę.");
+            }
+        }
     }
-
-
 }

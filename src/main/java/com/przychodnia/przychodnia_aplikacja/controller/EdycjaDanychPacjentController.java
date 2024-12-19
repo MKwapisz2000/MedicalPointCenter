@@ -61,8 +61,7 @@ public class EdycjaDanychPacjentController {
             @RequestParam("nrBudynku") String nrBudynku,
             @RequestParam("nrLokalu") String nrLokalu,
             @RequestParam("kodPocztowy") String kodPocztowy,
-            Model model,
-            RedirectAttributes redirectAttributes) {
+            Model model) {
 
         // Jeśli użytkownik nie jest zalogowany, przekieruj go na stronę logowania
         if (loggedInUser == null || loggedInUser.isEmpty()) {
@@ -90,11 +89,14 @@ public class EdycjaDanychPacjentController {
             // Próba edycji danych
             danePacjentaService.edycjaDanych(idUser, imie, nazwisko, pesel, numerTel, email, dataUrodzenia,
                     miasto, ulica, nrBudynku, nrLokalu, kodPocztowy);
-            redirectAttributes.addFlashAttribute("successMessage", "Dane zostały zmienione");
+            model.addAttribute("successMessage", "Edycja danych przebiegła prawidłowo");
             return "pacjent/edycja_danych";
 
         } catch (RuntimeException e) {
-            // Obsługa błędów i przekazywanie komunikatów do widoku
+            System.err.println("Błąd: " + e.getMessage());
+            e.printStackTrace();
+            model.addAttribute("validationError", "Wystąpił błąd: " + e.getMessage());
+
             if (e.getMessage().contains("pesel")) {
                 model.addAttribute("peselError", e.getMessage());
             } else if (e.getMessage().contains("email")) {

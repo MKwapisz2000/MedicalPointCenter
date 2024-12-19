@@ -5,9 +5,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.swing.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository {
@@ -116,7 +115,7 @@ public class UserRepository {
         );
     }
 
-    // Pobranie imion lekarzy na podstawie listy userów
+    // Pobranie nazwisk lekarzy na podstawie listy userów
     public List<String> getNazwiskaByIdUser(List<Long> idUser) {
         // Zapytanie SQL do pobrania imion i nazwisk użytkowników
         String sql = "SELECT nazwisko FROM user WHERE iduser IN (:iduser)";
@@ -196,4 +195,36 @@ public class UserRepository {
         // Wstawienie użytkownika do bazy danych
         jdbcTemplate.update(sql, params);
     }
+
+    // Pobranie imienia lekarza na podstawie idLekarz
+    public String getImieByIdLekarz(Long idLekarz) {
+
+        String sql = "SELECT u.imie FROM user u " +
+                "JOIN lekarz l ON u.iduser = l.iduser " +
+                "WHERE l.idlekarz = :idlekarz";
+
+        // Mapowanie parametrów
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("idlekarz", idLekarz);
+
+        // Wykonanie zapytania i zwrócenie wyniku
+        return jdbcTemplate.queryForObject(sql, params, String.class);
+    }
+
+    // Pobranie nazwiska lekarza na podstawie idLekarz
+    public String getNazwiskoByIdLekarz(Long idLekarz) {
+
+        String sql = "SELECT u.nazwisko FROM user u " +
+                "JOIN lekarz l ON u.iduser = l.iduser " +
+                "WHERE l.idlekarz = :idlekarz";
+
+        // Mapowanie parametrów
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("idlekarz", idLekarz);
+
+        // Wykonanie zapytania i zwrócenie wyniku
+        return jdbcTemplate.queryForObject(sql, params, String.class);
+    }
+
+
 }

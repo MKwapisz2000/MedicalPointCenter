@@ -1,14 +1,16 @@
 package com.przychodnia.przychodnia_aplikacja.model;
 
-public class LekarzDTO {
+public class SpecjalisciDTO {
     private Long idLekarza;
     private String imie;
     private String nazwisko;
+    private String specjalizacja;
 
-    public LekarzDTO(Long idLekarza, String imie, String nazwisko) {
+    public SpecjalisciDTO(Long idLekarza, String imie, String nazwisko, String specjalizacja) {
         this.idLekarza = idLekarza;
         this.imie = imie;
         this.nazwisko = nazwisko;
+        this.specjalizacja = specjalizacja;
     }
 
     public Long getIdLekarza() {
@@ -33,5 +35,13 @@ public class LekarzDTO {
 
     public void setNazwisko(String nazwisko) {
         this.nazwisko = nazwisko;
+    }
+
+    public String getSpecjalizacja() {
+        return specjalizacja;
+    }
+
+    public void setSpecjalizacja(String specjalizacja) {
+        this.specjalizacja = specjalizacja;
     }
 }

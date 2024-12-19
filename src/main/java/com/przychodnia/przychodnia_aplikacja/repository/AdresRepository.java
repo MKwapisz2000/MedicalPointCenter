@@ -110,9 +110,9 @@ public class AdresRepository {
         Map<String, Object> params = new HashMap<>();
         params.put("miasto", miasto);
         params.put("ulica", ulica);
-        params.put("nrBudynku", nr_budynku);
-        params.put("nrLokalu", nr_lokalu);
-        params.put("kodPocztowy", kod_pocztowy);
+        params.put("nr_budynku", nr_budynku);
+        params.put("nr_lokalu", nr_lokalu);
+        params.put("kod_pocztowy", kod_pocztowy);
         params.put("idpacjent", idpacjent);
 
         // Wstawienie adresu do bazy danych

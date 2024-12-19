@@ -88,4 +88,12 @@ public class PacjentRepository {
         // Wstawienie użytkownika do bazy danych
         jdbcTemplate.update(sql, params);
     }
+
+    public Long getIdUserByIdPacjent(Long idPacjent){
+        String sql = "SELECT iduser FROM pacjent WHERE idpacjent = :idpacjent";
+        Map<String, Object> params = new HashMap<>();
+        params.put("idpacjent", idPacjent);
+
+        return jdbcTemplate.queryForObject(sql, params, Long.class);
+    }
 }

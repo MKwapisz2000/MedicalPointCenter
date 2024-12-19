@@ -3,16 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NasiSpecjalisci</title>
+    <title>Nasi Specjaliści</title>
 </head>
 <body>
 
 <h1>Nasi specjaliści</h1>
 
+<div th:if="${lekarze != null}">
+    <table>
+        <thead>
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Specjalizacje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iteracja po lekarzach -->
+        <tr th:each="lekarz : ${lekarze}">
+            <td th:text="${lekarz.getImie}"></td>
+            <td th:text="${lekarz.getNazwisko}"></td>
+            <td th:text="${lekarz.getSpecjalizacja}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-
-
-
+<!-- Jeżeli nie ma lekarzy, wyświetl komunikat -->
+<div th:if="${lekarze == null}">
+    <p>Brak dostępnych specjalistów.</p>
+</div>
 
 </body>
 </html>

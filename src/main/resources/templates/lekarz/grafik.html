@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafik Lekarza</title>
+    <style>
+        .reserved {
+            color: red;
+        }
+
+        .available {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<h1>Grafik lekarza</h1>
+
+<!-- Informacja o błędach -->
+<div th:if="${validationError}" style="color: red;">
+    <p th:text="${validationError}"></p>
+</div>
+
+<!-- Wyświetlanie grafiku -->
+<div th:each="termin : ${terminy}">
+    <h2 th:text="'Data: ' + ${termin.getData}"></h2>
+    <p th:text="'Godzina początkowa: ' + ${termin.getGodzina_startowa} + ', Godzina końcowa: ' + ${termin.getGodzina_koncowa}"></p>
+
+    <h3>Godziny:</h3>
+    <ul>
+        <li th:each="godzina : ${termin.getGodzinyGrafik}"
+            th:classappend="${godzina.reserved} ? 'reserved' : 'available'">
+            <span th:text="${godzina.getGodzina}"></span>
+            <span th:if="${godzina.reserved}" th:text="' Pacjent: ' + ${godzina.getImie} + ' ' + ${godzina.getNazwisko}"></span>
+            <span th:if="${!godzina.reserved}" th:text="' (Dostępny)'"></span>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

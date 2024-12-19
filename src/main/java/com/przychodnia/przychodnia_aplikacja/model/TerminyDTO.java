@@ -10,6 +10,7 @@ public class TerminyDTO {
     private LocalTime godzina_startowa;
     private LocalTime godzina_koncowa;
     private List<LocalTime> dostepneGodziny;
+    private List<TerminStatus> godzinyGrafik;
 
     public TerminyDTO(LocalDate data, LocalTime godzina_startowa, LocalTime godzina_koncowa) {
         this.data = data;
@@ -49,5 +50,13 @@ public class TerminyDTO {
 
     public void setGodzina_koncowa(LocalTime godzina_koncowa) {
         this.godzina_koncowa = godzina_koncowa;
+    }
+
+    public List<TerminStatus> getGodzinyGrafik() {
+        return godzinyGrafik;
+    }
+
+    public void setGodzinyGrafik(List<TerminStatus> godzinyGrafik) {
+        this.godzinyGrafik = godzinyGrafik;
     }
 }
