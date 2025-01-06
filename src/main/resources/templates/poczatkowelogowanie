@@ -1,66 +1,125 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logowanie</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f5d0b0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f1e1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-    header {
-      background-color: #c58b6e;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+        header {
+            background: linear-gradient(135deg, #c58b6e, #a6785f);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            border-bottom: 5px solid #8e6045;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-    .login-options {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 30px;
-    }
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
 
-    .login-option {
-      width: 200px;
-      height: 100px;
-      background-color: #c58b6e;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 10px;
-      transition: background-color 0.3s;
-    }
+        main {
+            flex: 1; /* Rozciąga główną sekcję, aby wypełnić przestrzeń między nagłówkiem a stopką */
+            padding: 20px;
+            margin: 0 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
 
-    .login-option:hover {
-      background-color: #d9a589;
-    }
-  </style>
+        h2 {
+            font-size: 28px;
+            color: white;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            padding: 15px;
+            background-color: #c58b6e;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .login-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .login-option {
+            width: 250px;
+            height: 250px;
+            background-color: white;
+            color: #c58b6e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+            text-transform: uppercase;
+        }
+
+        .login-option:hover {
+            background-color: #f2d4a6;
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #8e6045;
+            color: white;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #f7d7c4;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Nagłówek -->
-  <header>
-    <h1>MedPoint Clinic</h1>
-  </header>
+<header>
+    <h1>MedPoint Clinic - logowanie</h1>
+</header>
 
-  <!-- Sekcja logowania -->
-  <main>
-    <h2>Wybierz typ użytkownika, aby się zalogować:</h2>
+<main>
+    <h2>Wybierz odpowiedni profil</h2>
     <div class="login-options">
-      <div class="login-option" onclick="window.location.href='/logowanie/pacjent'">Pacjent</div>
-      <div class="login-option" onclick="window.location.href='/logowanie/lekarz'">Lekarz</div>
-      <div class="login-option" onclick="window.location.href='/logowanie/administrator'">Administrator</div>
+        <div class="login-option" onclick="window.location.href='/logowanie/pacjent'">Pacjent</div>
+        <div class="login-option" onclick="window.location.href='/logowanie/lekarz'">Lekarz</div>
+        <div class="login-option" onclick="window.location.href='/logowanie/administrator'">Administrator</div>
     </div>
-  </main>
+</main>
+
+<footer>
+    &copy; 2025 MedPoint Clinic - Wszystkie prawa zastrzeżone.
+</footer>
 
 </body>
 </html>
