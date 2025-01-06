@@ -1,172 +1,135 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Logowanie</title>
-        <style>
-            /* Globalne style */
-            body {
-                font-family: 'Arial', sans-serif;
-                background-color: #f7f1e1;
-                margin: 0;
-                padding: 0;
-                line-height: 1.6;
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-                overflow-x: hidden; /* Ukrywa przewijanie poziome */
-            }
-    
-            header {
-                background: linear-gradient(135deg, #c58b6e, #a6785f);
-                color: white;
-                text-align: center;
-                padding: 20px;
-                margin-bottom: 30px;
-                border-bottom: 5px solid #8e6045;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            }
-    
-            header h1 {
-                font-size: 24px;
-                margin: 0;
-                letter-spacing: 1px;
-            }
-    
-            /* Kontener główny */
-            .container {
-                max-width: 90%;
-                width: 500px; /* Zmniejszona szerokość */
-                margin: 0 auto;
-                flex-grow: 1;
-            }
-    
-            /* Sekcje */
-            .section {
-                padding: 20px;
-                margin: 20px 0;
-                background-color: white;
-                border-radius: 10px;
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s, box-shadow 0.3s;
-            }
-    
-            .section:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            }
-    
-            .section h2 {
-                font-size: 20px;
-                color: #c58b6e;
-                margin-bottom: 10px;
-                border-left: 5px solid #c58b6e;
-                padding-left: 10px;
-            }
-    
-            .section p {
-                font-size: 16px;
-                color: #333;
-                margin-bottom: 10px;
-            }
-    
-            /* Form */
-            form {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            label {
-                font-size: 16px;
-                color: #333;
-            }
+        html, body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f1e1;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
 
-            input[type="email"],
-            input[type="password"] {
-                padding: 10px;
-                font-size: 16px;
-                border: 1px solid #ccc;
-                border-radius: 8px;
-                transition: border-color 0.3s;
-            }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
 
-            input[type="email"]:focus,
-            input[type="password"]:focus {
-                border-color: #c58b6e;
-                outline: none;
-            }
+        header {
+            background: linear-gradient(135deg, #c58b6e, #a6785f);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            border-bottom: 5px solid #8e6045;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%; /* Tło na całą szerokość */
+        }
 
-            .error {
-                color: red;
-                font-size: 14px;
-            }
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
 
-            button {
-                padding: 10px 15px;
-                background-color: #c58b6e;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                font-size: 16px;
-                cursor: pointer;
-                transition: background-color 0.3s;
-            }
+        .wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-            button:hover {
-                background-color: #a6785f;
-            }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 400px; /* Ograniczenie szerokości formularza */
+            width: 100%;
+            text-align: center;
+        }
 
-            /* Stopka */
-            footer {
-                text-align: center;
-                padding: 15px;
-                background-color: #8e6045;
-                color: white;
-                width: 100%;
-                font-size: 14px;
-                margin-top: auto;
-            }
-    
-            footer a {
-                color: #f7d7c4;
-                text-decoration: none;
-                margin-left: 5px;
-            }
-    
-            footer a:hover {
-                text-decoration: underline;
-            }
+        label {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #6a4e23;
+            display: block;
+        }
 
-            /* Responsywność */
-            @media (max-width: 600px) {
-                .container {
-                    width: 90%;
-                }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #d4a1a1;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background-color: #f8f0e1;
+        }
 
-                header h1 {
-                    font-size: 22px;
-                }
+        input:focus {
+            border-color: #6a4e23;
+            outline: none;
+        }
 
-                .section h2 {
-                    font-size: 18px;
-                }
-            }
-        </style>
-    </head>
-    <body>
-    
+        button {
+            background-color: #6a4e23;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #5a3e1c;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #8e6045;
+            color: white;
+            font-size: 14px;
+            margin-top: auto; /* Stopka zawsze na dole */
+            width: 100%; /* Szerokość stopki na całą stronę */
+        }
+
+        footer a {
+            color: #f7d7c4;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
     <header>
         <h1>MedPoint Clinic - logowanie</h1>
     </header>
 
-    <div class="container">
-        <section class="section">
-            <div th:if="${successMessage}" style="color: green;">
-                <p th:text="${successMessage}"></p>
-            </div>
-
+    <div class="wrapper">
+        <div class="container">
             <form action="/logowanie" method="post">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Wprowadź swój email" />
@@ -181,13 +144,13 @@
 
                 <button type="submit">Zaloguj się</button>
             </form>
-        </section>
+        </div>
     </div>
 
     <footer>
         &copy; 2025 MedPoint Clinic - Wszystkie prawa zastrzeżone.
     </footer>
-
-    </body>
+</body>
 </html>
+
 
