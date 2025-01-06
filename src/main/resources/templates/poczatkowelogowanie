@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedPoint Clinic - Logowanie</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5d0b0;
+    }
+
+    header {
+      background-color: #c58b6e;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .login-options {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .login-option {
+      width: 200px;
+      height: 100px;
+      background-color: #c58b6e;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: background-color 0.3s;
+    }
+
+    .login-option:hover {
+      background-color: #d9a589;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nagłówek -->
+  <header>
+    <h1>MedPoint Clinic</h1>
+  </header>
+
+  <!-- Sekcja logowania -->
+  <main>
+    <h2>Wybierz typ użytkownika, aby się zalogować:</h2>
+    <div class="login-options">
+      <div class="login-option" onclick="window.location.href='/logowanie/pacjent'">Pacjent</div>
+      <div class="login-option" onclick="window.location.href='/logowanie/lekarz'">Lekarz</div>
+      <div class="login-option" onclick="window.location.href='/logowanie/administrator'">Administrator</div>
+    </div>
+  </main>
+
+</body>
+</html>
