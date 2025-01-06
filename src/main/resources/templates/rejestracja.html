@@ -6,181 +6,199 @@
     <title>Rejestracja</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f1e1;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-        }
-
-        h1 {
+        header {
+            background: linear-gradient(135deg, #c58b6e, #a6785f);
+            color: white;
             text-align: center;
-            color: #4a90e2;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+            border-bottom: 5px solid #8e6045;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
         }
 
         label {
-            display: block;
-            margin-bottom: 8px;
             font-weight: bold;
             color: #333;
+            margin-bottom: 8px;
+            display: inline-block;
         }
 
         input[type="text"],
-        input[type="date"],
         input[type="email"],
-        input[type="password"] {
+        input[type="password"],
+        input[type="date"] {
             width: 100%;
-            padding: 8px;
-            margin-bottom: 12px;
+            padding: 12px;
+            margin-top: 5px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 14px;
+            box-sizing: border-box;
         }
 
-        input[type="checkbox"] {
-            margin-right: 8px;
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="date"]:focus {
+            border-color: #c58b6e;
+            outline: none;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
         }
 
         button[type="submit"] {
             width: 100%;
-            padding: 12px;
-            background-color: #4a90e2;
+            padding: 14px;
+            background-color: #c58b6e;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
         button[type="submit"]:hover {
-            background-color: #357ab7;
-        }
-
-        .error-message {
-            color: red;
-            font-size: 12px;
-            margin-top: 4px;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
+            background-color: #b77a58;
         }
 
         .link {
             text-align: center;
             font-size: 14px;
+            margin-top: 20px;
         }
 
         .link a {
-            color: #4a90e2;
+            color: #c58b6e;
             text-decoration: none;
+            transition: color 0.3s;
         }
 
         .link a:hover {
+            color: #a6785f;
+        }
+
+        .form-group input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+       /* Stopka */
+       footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #8e6045;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #f7d7c4;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        footer a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Rejestracja</h1>
+<header>
+    <h1>MedPoint Clinic - rejestracja</h1>
+</header>
 
-        <!-- Wyświetlanie błędu walidacji -->
-        <div th:if="${validationError}" class="error-message" th:text="${validationError}"></div>
-
-        <form action="/rejestracja" method="post">
-            <div class="form-group">
-                <label for="imie">Imię:</label>
-                <input type="text" id="imie" name="imie" />
-            </div>
-
-            <div class="form-group">
-                <label for="nazwisko">Nazwisko:</label>
-                <input type="text" id="nazwisko" name="nazwisko" />
-            </div>
-
-            <div class="form-group">
-                <label for="pesel">Pesel:</label>
-                <input type="text" id="pesel" name="pesel" />
-                <span th:if="${peselError}" class="error-message" th:text="${peselError}"></span>
-            </div>
-
-            <div class="form-group">
-                <label for="numerTel">Numer telefonu:</label>
-                <input type="text" id="numerTel" name="numerTel" />
-            </div>
-
-            <div class="form-group">
-                <label for="dataUrodzenia">Data urodzenia:</label>
-                <input type="date" id="dataUrodzenia" name="dataUrodzenia" />
-            </div>
-
-            <div class="form-group">
-                <label for="miasto">Miasto:</label>
-                <input type="text" id="miasto" name="miasto" />
-            </div>
-
-            <div class="form-group">
-                <label for="ulica">Ulica:</label>
-                <input type="text" id="ulica" name="ulica" />
-            </div>
-
-            <div class="form-group">
-                <label for="nrBudynku">Nr budynku:</label>
-                <input type="text" id="nrBudynku" name="nrBudynku" />
-            </div>
-
-            <div class="form-group">
-                <label for="nrLokalu">Nr lokalu:</label>
-                <input type="text" id="nrLokalu" name="nrLokalu" />
-            </div>
-
-            <div class="form-group">
-                <label for="kodPocztowy">Kod pocztowy:</label>
-                <input type="text" id="kodPocztowy" name="kodPocztowy" />
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" />
-                <span th:if="${emailError}" class="error-message" th:text="${emailError}"></span>
-            </div>
-
-            <div class="form-group">
-                <label for="haslo">Hasło:</label>
-                <input type="password" id="haslo" name="haslo" />
-            </div>
-
-            <div class="form-group">
-                <label for="regulamin">
-                    <input type="checkbox" id="regulamin" name="regulamin" />
-                    Akceptuję regulamin
-                    <a href="/regulamin.pdf" target="_blank">zobacz regulamin</a>
-                </label>
-                <span th:if="${regulaminError}" class="error-message" th:text="${regulaminError}"></span>
-            </div>
-
-            <button type="submit">Zarejestruj</button>
-        </form>
-
-        <div class="link">
-            <p>Masz już konto? <a href="/logowanie">Zaloguj się</a></p>
+<div class="form-container">
+    <form action="/rejestracja" method="post">
+        <div class="form-group">
+            <label for="imie">Imię:</label>
+            <input type="text" id="imie" name="imie" required />
         </div>
+
+        <div class="form-group">
+            <label for="nazwisko">Nazwisko:</label>
+            <input type="text" id="nazwisko" name="nazwisko" required />
+        </div>
+
+        <div class="form-group">
+            <label for="pesel">Pesel:</label>
+            <input type="text" id="pesel" name="pesel" required />
+            <span th:if="${peselError}" class="error-message" th:text="${peselError}"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="numerTel">Numer telefonu:</label>
+            <input type="text" id="numerTel" name="numerTel" required />
+        </div>
+
+        <div class="form-group">
+            <label for="dataUrodzenia">Data urodzenia:</label>
+            <input type="date" id="dataUrodzenia" name="dataUrodzenia" required />
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+            <span th:if="${emailError}" class="error-message" th:text="${emailError}"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="haslo">Hasło:</label>
+            <input type="password" id="haslo" name="haslo" required />
+        </div>
+
+        <div class="form-group">
+            <label for="regulamin">
+                <input type="checkbox" id="regulamin" name="regulamin" required />
+                Akceptuję regulamin
+                <a href="/regulamin.pdf" target="_blank">zobacz regulamin</a>
+            </label>
+        </div>
+
+        <button type="submit">Zarejestruj</button>
+    </form>
+
+    <div class="link">
+        <p>Masz już konto? <a href="/logowanie">Zaloguj się</a></p>
     </div>
+</div>
+
+<footer>
+    &copy; 2025 MedPoint Clinic - Wszystkie prawa zastrzeżone.
+</footer>
 
 </body>
 </html>
