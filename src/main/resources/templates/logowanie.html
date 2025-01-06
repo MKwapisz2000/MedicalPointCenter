@@ -1,35 +1,193 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logowanie</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Logowanie</title>
+        <style>
+            /* Globalne style */
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f7f1e1;
+                margin: 0;
+                padding: 0;
+                line-height: 1.6;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                overflow-x: hidden; /* Ukrywa przewijanie poziome */
+            }
+    
+            header {
+                background: linear-gradient(135deg, #c58b6e, #a6785f);
+                color: white;
+                text-align: center;
+                padding: 20px;
+                margin-bottom: 30px;
+                border-bottom: 5px solid #8e6045;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+    
+            header h1 {
+                font-size: 24px;
+                margin: 0;
+                letter-spacing: 1px;
+            }
+    
+            /* Kontener główny */
+            .container {
+                max-width: 90%;
+                width: 500px; /* Zmniejszona szerokość */
+                margin: 0 auto;
+                flex-grow: 1;
+            }
+    
+            /* Sekcje */
+            .section {
+                padding: 20px;
+                margin: 20px 0;
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+    
+            .section:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+    
+            .section h2 {
+                font-size: 20px;
+                color: #c58b6e;
+                margin-bottom: 10px;
+                border-left: 5px solid #c58b6e;
+                padding-left: 10px;
+            }
+    
+            .section p {
+                font-size: 16px;
+                color: #333;
+                margin-bottom: 10px;
+            }
+    
+            /* Form */
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
 
-<h1>Logowanie</h1>
+            label {
+                font-size: 16px;
+                color: #333;
+            }
 
-<div th:if="${successMessage}" style="color: green;">
-    <p th:text="${successMessage}"></p>
-</div>
+            input[type="email"],
+            input[type="password"] {
+                padding: 10px;
+                font-size: 16px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                transition: border-color 0.3s;
+            }
 
-<form action="/logowanie" method="post">
+            input[type="email"]:focus,
+            input[type="password"]:focus {
+                border-color: #c58b6e;
+                outline: none;
+            }
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" />
-    <span th:if="${emailError}" style="color: red;" th:text="${emailError}"></span><br><br>
+            .error {
+                color: red;
+                font-size: 14px;
+            }
 
-    <label for="haslo">Hasło:</label>
-    <input type="password" id="haslo" name="haslo" />
-    <span th:if="${hasloError}" style="color: red;" th:text="${hasloError}"></span><br><br>
+            button {
+                padding: 10px 15px;
+                background-color: #c58b6e;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
 
-    <span th:if="${statusError}" style="color: red;" th:text="${statusError}"></span><br><br>
+            button:hover {
+                background-color: #a6785f;
+            }
 
-    <span th:if="${validationError}" style="color: red;" th:text="${validationError}" class="error"></span><br><br>
+            /* Stopka */
+            footer {
+                text-align: center;
+                padding: 15px;
+                background-color: #8e6045;
+                color: white;
+                width: 100%;
+                font-size: 14px;
+                margin-top: auto;
+            }
+    
+            footer a {
+                color: #f7d7c4;
+                text-decoration: none;
+                margin-left: 5px;
+            }
+    
+            footer a:hover {
+                text-decoration: underline;
+            }
 
+            /* Responsywność */
+            @media (max-width: 600px) {
+                .container {
+                    width: 90%;
+                }
 
-    <button type="submit">Zaloguj się</button>
-</form>
+                header h1 {
+                    font-size: 22px;
+                }
 
-</body>
+                .section h2 {
+                    font-size: 18px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+    
+    <header>
+        <h1>MedPoint Clinic - logowanie</h1>
+    </header>
+
+    <div class="container">
+        <section class="section">
+            <div th:if="${successMessage}" style="color: green;">
+                <p th:text="${successMessage}"></p>
+            </div>
+
+            <form action="/logowanie" method="post">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Wprowadź swój email" />
+                <span th:if="${emailError}" class="error" th:text="${emailError}"></span>
+
+                <label for="haslo">Hasło:</label>
+                <input type="password" id="haslo" name="haslo" placeholder="Wprowadź swoje hasło" />
+                <span th:if="${hasloError}" class="error" th:text="${hasloError}"></span>
+
+                <span th:if="${statusError}" class="error" th:text="${statusError}"></span>
+                <span th:if="${validationError}" class="error" th:text="${validationError}"></span>
+
+                <button type="submit">Zaloguj się</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        &copy; 2025 MedPoint Clinic - Wszystkie prawa zastrzeżone.
+    </footer>
+
+    </body>
 </html>
+
