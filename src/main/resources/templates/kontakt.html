@@ -5,41 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kontakt</title>
     <style>
+        /* Globalne style */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5d0b0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f1e1;
             margin: 0;
             padding: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
-            background-color: #c58b6e;
+            background: linear-gradient(135deg, #c58b6e, #a6785f);
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
+            border-bottom: 5px solid #8e6045;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* Kontener główny */
+        .container {
+            max-width: 90%;
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Sekcje */
         .section {
-            max-width: 800px;
-            margin: 30px auto;
             padding: 20px;
+            margin: 20px 0;
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        footer {
-            background-color: #c58b6e;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
+        .section h2 {
+            font-size: 24px;
+            color: #c58b6e;
+            margin-bottom: 10px;
+            border-left: 5px solid #c58b6e;
+            padding-left: 10px;
+        }
+
+        .section p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Ikony w sekcji adresu */
+        .section p span {
+            font-size: 20px;
+            margin-right: 10px;
+            color: #c58b6e;
+        }
+
+        /* Mapa */
         .map-container {
-            margin-top: 30px;
+            margin-top: 20px;
             position: relative;
             overflow: hidden;
             padding-bottom: 56.25%;
@@ -54,6 +94,24 @@
             height: 100%;
             border: 0;
         }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #8e6045;
+            color: white;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #f7d7c4;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -62,23 +120,25 @@
     <h1>MedPoint Clinic - Kontakt</h1>
 </header>
 
-<!-- Sekcja kontaktowa -->
-<section class="section">
-    <h2>Adres</h2>
-    <p>MedPoint Clinic</p>
-    <p>ul. Świdnicka 12, 50-067 Wrocław, Polska</p>
-    <p>Telefon: +48 123 456 789</p>
-    <p>Email: kontakt@medpoint.pl</p>
-</section>
+<div class="container">
+    <!-- Sekcja kontaktowa -->
+    <section class="section">
+        <h2>Adres</h2>
+        <p><strong>MedPoint Clinic</strong></p>
+        <p><span>📍</span>ul. Świdnicka 12<br>50-067 Wrocław, Polska</p>
+        <p><span>☎️</span>Telefon: +48 123 456 789</p>
+        <p><span>✉️</span>Email: <a href="mailto:kontakt@medpoint.pl">kontakt@medpoint.pl</a></p>
+    </section>
 
-<!-- Mapa -->
-<section class="section">
-    <h2>Znajdź nas na mapie</h2>
-    <div class="map-container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2419.6813940162826!2d17.03334851572278!3d51.10792381831948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470fc20b6cd941e1%3A0x30a163b8599a5a6!2s%C5%9Awidnicka+12%2C+50-067+Wroc%C5%82aw!5e0!3m2!1spl!2spl!4v1673032492481!5m2!1spl!2spl" 
-        width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-</section>
+    <!-- Mapa -->
+    <section class="section">
+        <h2>Znajdź nas na mapie</h2>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2419.6813940162826!2d17.03334851572278!3d51.10792381831948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470fc20b6cd941e1%3A0x30a163b8599a5a6!2s%C5%9Awidnicka+12%2C+50-067+Wroc%C5%82aw!5e0!3m2!1spl!2spl!4v1673032492481!5m2!1spl!2spl" 
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+</div>
 
 <footer>
     &copy; 2025 MedPoint Clinic - Wszystkie prawa zastrzeżone.
