@@ -26,88 +26,43 @@
             margin: 0;
         }
 
-        .form-container {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 30px;
+        .section {
+            padding: 20px;
+            margin: 0 15px 30px;
             background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
-            display: inline-block;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="date"] {
-            width: 100%;
-            padding: 12px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
             border-radius: 8px;
-            font-size: 14px;
-            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="password"]:focus,
-        input[type="date"]:focus {
-            border-color: #c58b6e;
-            outline: none;
+        .section h2 {
+            font-size: 24px;
+            color: #c58b6e;
+            margin-bottom: 10px;
         }
 
-        .error-message {
-            color: red;
-            font-size: 12px;
+        .section p {
+            font-size: 16px;
+            color: #333;
         }
 
-        button[type="submit"] {
+        .visualization img {
             width: 100%;
-            padding: 14px;
+            max-width: 800px;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
             background-color: #c58b6e;
             color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            position: relative;
+            bottom: 0;
+            width: 100%;
         }
-
-        button[type="submit"]:hover {
-            background-color: #b77a58;
-        }
-
-        .link {
-            text-align: center;
-            font-size: 14px;
-            margin-top: 20px;
-        }
-
-        .link a {
-            color: #c58b6e;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .link a:hover {
-            color: #a6785f;
-        }
-
-        .form-group input[type="checkbox"] {
-            margin-right: 8px;
-        }
-
     </style>
 </head>
 <body>
@@ -140,20 +95,3 @@
 
 </body>
 </html>
-
-/*
-<!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONas</title>
-</head>
-<body>
-
-<h1>O nas</h1>
-
-
-</body>
-</html>
-*/
