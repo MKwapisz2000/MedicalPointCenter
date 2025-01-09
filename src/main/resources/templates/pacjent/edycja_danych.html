@@ -4,61 +4,203 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edycja danych osobowych</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f1e1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #c58b6e, #a6785f);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+            border-bottom: 5px solid #8e6045;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h2 {
+            color: #8e6045;
+            margin-top: 30px;  /* Zwiększony odstęp między sekcjami */
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            margin: 10px 0 5px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="date"]:focus {
+            border-color: #8e6045;
+            outline: none;
+            box-shadow: 0 0 5px rgba(142, 96, 69, 0.5);  /* Delikatny cień dla aktywnego pola */
+        }
+
+        span {
+            color: red;
+            font-size: 0.9em;
+        }
+
+        button {
+            background-color: #8e6045;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;  /* Zaokrąglone przyciski */
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #6F4F28;
+        }
+
+        .success-message,
+        .error-message {
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .success-message {
+            color: green;
+        }
+
+        .error-message {
+            color: red;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #8e6045;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #f7d7c4;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        footer a:hover {
+            color: #ffffff;  /* Zmiana koloru na hover w stopce */
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 10px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="date"],
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<h1>Edycja danych osobowych</h1>
+<header>
+    <h1>Edycja danych osobowych</h1>
+</header>
 
-<div th:if="${successMessage}" style="color: green; font-weight: bold;" th:text="${successMessage}"></div>
-<div th:if="${validationError}" style="color: red;" th:text="${validationError}"></div>
+<div class="form-container">
 
-<form action="/pacjent/edycja_danych" method="post">
+    <div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+    <div th:if="${validationError}" class="error-message" th:text="${validationError}"></div>
 
-<h2>Informacje osobiste:</h2>
-    <label for="imie">Imię:</label>
-    <input type="text" id="imie" name="imie" th:value="${danePacjenta.getImie}" /><br>
+    <form action="/pacjent/edycja_danych" method="post">
 
-    <label for="nazwisko">Nazwisko:</label>
-    <input type="text" id="nazwisko" name="nazwisko" th:value="${danePacjenta.getNazwisko}" /><br>
+        <h2>Informacje osobiste:</h2>
+        <label for="imie">Imię:</label>
+        <input type="text" id="imie" name="imie" th:value="${danePacjenta.getImie}" />
 
-    <label for="pesel">Pesel:</label>
-    <input type="text" id="pesel" name="pesel" th:value="${danePacjenta.getPesel}" />
-    <span th:if="${peselError}" style="color: red;" th:text="${peselError}"></span><br>
+        <label for="nazwisko">Nazwisko:</label>
+        <input type="text" id="nazwisko" name="nazwisko" th:value="${danePacjenta.getNazwisko}" />
 
-    <br>
-    <label for="dataUrodzenia">Data urodzenia:</label>
-    <input type="date" id="dataUrodzenia" name="dataUrodzenia" th:value="${danePacjenta.getDataUrodzenia}" /><br>
-<br><br>
+        <label for="pesel">Pesel:</label>
+        <input type="text" id="pesel" name="pesel" th:value="${danePacjenta.getPesel}" />
+        <span th:if="${peselError}" th:text="${peselError}"></span>
 
-<h2>Adres:</h2>
-    <label for="ulica">Ulica:</label>
-    <input type="text" id="ulica" name="ulica" th:value="${danePacjenta.getUlica}" /><br>
+        <label for="dataUrodzenia">Data urodzenia:</label>
+        <input type="date" id="dataUrodzenia" name="dataUrodzenia" th:value="${danePacjenta.getDataUrodzenia}" />
 
-    <label for="nrBudynku">Numer budynku:</label>
-    <input type="text" id="nrBudynku" name="nrBudynku" th:value="${danePacjenta.getNrBudynku}" /><br>
+        <h2>Adres:</h2>
+        <label for="ulica">Ulica:</label>
+        <input type="text" id="ulica" name="ulica" th:value="${danePacjenta.getUlica}" />
 
-    <label for="nrLokalu">Numer lokalu:</label>
-    <input type="text" id="nrLokalu" name="nrLokalu" th:value="${danePacjenta.getNrLokalu}" /><br>
+        <label for="nrBudynku">Numer budynku:</label>
+        <input type="text" id="nrBudynku" name="nrBudynku" th:value="${danePacjenta.getNrBudynku}" />
 
-    <label for="miasto">Miasto:</label>
-    <input type="text" id="miasto" name="miasto" th:value="${danePacjenta.getMiasto}" /><br>
+        <label for="nrLokalu">Numer lokalu:</label>
+        <input type="text" id="nrLokalu" name="nrLokalu" th:value="${danePacjenta.getNrLokalu}" />
 
-    <label for="kodPocztowy">Kod pocztowy:</label>
-    <input type="text" id="kodPocztowy" name="kodPocztowy" th:value="${danePacjenta.getKodPocztowy}" /><br>
-    <br><br>
+        <label for="miasto">Miasto:</label>
+        <input type="text" id="miasto" name="miasto" th:value="${danePacjenta.getMiasto}" />
 
-<h2>Dane kontaktowe:</h2>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" th:value="${danePacjenta.getEmail}" />
-    <span th:if="${emailError}" style="color: red;" th:text="${emailError}"></span><br>
+        <label for="kodPocztowy">Kod pocztowy:</label>
+        <input type="text" id="kodPocztowy" name="kodPocztowy" th:value="${danePacjenta.getKodPocztowy}" />
 
-    <br>
-    <label for="numerTel">Numer telefonu:</label>
-    <input type="text" id="numerTel" name="numerTel" th:value="${danePacjenta.getNumerTelefonu}" /><br>
-<br><br>
+        <h2>Dane kontaktowe:</h2>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" th:value="${danePacjenta.getEmail}" />
+        <span th:if="${emailError}" th:text="${emailError}"></span>
 
-<button type="submit">Edytuj dane</button>
-</form>
+        <label for="numerTel">Numer telefonu:</label>
+        <input type="text" id="numerTel" name="numerTel" th:value="${danePacjenta.getNumerTelefonu}" />
+
+        <button type="submit">Edytuj dane</button>
+    </form>
+</div>
+
+<footer>
+    &copy; 2025 MedPoint Clinic - Wszystkie prawa zastrzeżone.
+</footer>
 
 </body>
 </html>
+
