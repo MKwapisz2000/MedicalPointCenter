@@ -4,35 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nasi Specjaliści</title>
+
+    <link rel="stylesheet" href="css/body.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/specjalisci.css">
+
 </head>
 <body>
 
-<h1>Nasi specjaliści</h1>
-
+<header>
+    <h1>MedPoint Clinic - nasi specjaliści</h1>
+</header>
 <div th:if="${lekarze != null}">
-    <table>
-        <thead>
-        <tr>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Specjalizacje</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Iteracja po lekarzach -->
-        <tr th:each="lekarz : ${lekarze}">
-            <td th:text="${lekarz.getImie}"></td>
-            <td th:text="${lekarz.getNazwisko}"></td>
-            <td th:text="${lekarz.getSpecjalizacja}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="cards-container" th:each="lekarz : ${lekarze}">
+        <!-- Karta specjalisty -->
+        <div class="card">
+            <h3>
+                <span th:text="${lekarz.getImie}"></span>
+                <span th:text="${lekarz.getNazwisko}"></span>
+            </h3>
+            <p class="specialization" th:text="${lekarz.getSpecjalizacja}"></p>
+        </div>
+    </div>
 </div>
 
-<!-- Jeżeli nie ma lekarzy, wyświetl komunikat -->
-<div th:if="${lekarze == null}">
+<div class="no-specialists" th:if="${lekarze == null}">
     <p>Brak dostępnych specjalistów.</p>
 </div>
+
+<footer>
+    &copy; 2025 MedPoint Clinic - Wszystkie prawa zastrzeżone.
+</footer>
 
 </body>
 </html>
