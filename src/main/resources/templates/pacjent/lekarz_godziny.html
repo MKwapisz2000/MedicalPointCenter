@@ -4,35 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wybór daty</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f1e1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #c58b6e, #a6785f);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+            border-bottom: 5px solid #8e6045;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .message {
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .success-message {
+            color: green;
+        }
+
+        .error-message {
+            color: red;
+        }
+
+        .date-selection {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            margin: 0;
+            color: #555;
+        }
+
+        button {
+            background-color: #8e6045;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #6F4F28;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Wybierz datę wizyty</h1>
+<header>
+    <h1>Wybierz datę wizyty</h1>
+</header>
 
-<div th:if="${successMessage}" style="color: green; font-weight: bold;" th:text="${successMessage}"></div>
-<div th:if="${validationError}" style="color: red;" th:text="${validationError}"></div>
+<div th:if="${successMessage}" class="message success-message" th:text="${successMessage}"></div>
+<div th:if="${validationError}" class="message error-message" th:text="${validationError}"></div>
 
-    <div th:if="${terminy != null}">
-        <ul>
-            <!-- Iteracja po dostępnych datach -->
-            <li th:each="termin : ${terminy}">
-                <h3 th:text="'Data: ' + ${termin.getData}"></h3>
-                <ul>
-                    <!-- Lista godzin dla każdej daty -->
-                    <li th:each="godzina : ${termin.getDostepneGodziny}">
-                        <form action="/pacjent/lekarz_godziny" method="post">
-                            <input type="hidden" th:value="${termin.getData}" name="data" />
-                            <input type="hidden" th:value="${godzina}" name="godzina" />
-                            <input type="hidden" th:value="${idlekarz}" name="idlekarz" />
-                            <button type="submit" th:text="${godzina}"></button>
-                        </form>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-
-
+<div th:if="${terminy != null}" class="date-selection">
+    <ul>
+        <!-- Iteracja po dostępnych datach -->
+        <li th:each="termin : ${terminy}">
+            <h3 th:text="'Data: ' + ${termin.getData()}"></h3>
+            <ul>
+                <!-- Lista godzin dla każdej daty -->
+                <li th:each="godzina : ${termin.getDostepneGodziny()}">
+                    <form action="/pacjent/lekarz_godziny" method="post">
+                        <input type="hidden" th:value="${termin.getData()}" name="data" />
+                        <input type="hidden" th:value="${godzina}" name="godzina" />
+                        <input type="hidden" th:value="${idlekarz}" name="idlekarz" />
+                        <button type="submit" th:text="${godzina}"></button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
 
 </body>
 </html>
+
