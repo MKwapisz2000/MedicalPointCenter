@@ -4,40 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logowanie</title>
+<style>  
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html, body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f1e1;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        }
+    
+    body {
+        display: flex;
+        flex-direction: column;
+        }
+    
+    header {
+        background: linear-gradient(135deg, #c58b6e, #a6785f);
+        color: white;
+        text-align: center;
+        padding: 30px 20px;
+        border-bottom: 5px solid #8e6045;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 100%; /* Tło na całą szerokość */
+        }
+    
+    header h1 {
+        font-size: 28px;
+        margin: 0;
+        letter-spacing: 1px;
+    }
+    
+    .wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+    
+    .container {
+        background-color: #fff;
+        padding: 30px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        max-width: 400px; /* Ograniczenie szerokości formularza */
+        width: 100%;
+         text-align: center;
+    }
+    
+    label {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+        color: #6a4e23;
+        display: block;
+    }
+    
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #d4a1a1;
+        border-radius: 5px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        background-color: #f8f0e1;
+    }
+    
+    input:focus {
+        border-color: #6a4e23;
+        outline: none;
+    }
 
-    <!-- Pliki CSS -->
-    <link rel="stylesheet" href="css/okienko.css">
-    <link rel="stylesheet" href="css/button.css">
-    <link rel="stylesheet" href="css/footer.css">
+    button {
+        background-color: #6a4e23; 
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 1.1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #5a3e1c; 
+}
+</style>
 
 </head>
 <body>
-<header>
-    <h1>MedPoint Clinic - logowanie</h1>
-</header>
+    <header>
+        <h1>MedPoint Clinic - logowanie</h1>
+    </header>
 
-<div class="wrapper">
-    <div class="container">
-        <form action="/logowanie" method="post">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Wprowadź swój email" />
-            <span th:if="${emailError}" class="error" th:text="${emailError}"></span>
+    <div class="wrapper">
+        <div class="container">
+            <form action="/logowanie" method="post">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Wprowadź swój email" />
+                <span th:if="${emailError}" class="error" th:text="${emailError}"></span>
 
-            <label for="haslo">Hasło:</label>
-            <input type="password" id="haslo" name="haslo" placeholder="Wprowadź swoje hasło" />
-            <span th:if="${hasloError}" class="error" th:text="${hasloError}"></span>
+                <label for="haslo">Hasło:</label>
+                <input type="password" id="haslo" name="haslo" placeholder="Wprowadź swoje hasło" />
+                <span th:if="${hasloError}" class="error" th:text="${hasloError}"></span>
 
-            <span th:if="${statusError}" class="error" th:text="${statusError}"></span>
-            <span th:if="${validationError}" class="error" th:text="${validationError}"></span>
+                <span th:if="${statusError}" class="error" th:text="${statusError}"></span>
+                <span th:if="${validationError}" class="error" th:text="${validationError}"></span>
 
-            <button type="submit">Zaloguj się</button>
-        </form>
+                <button type="submit">Zaloguj się</button>
+            </form>
+        </div>
     </div>
-</div>
 
-<footer>
-    &copy; 2025 MedPoint Clinic - Wszystkie prawa zastrzeżone.
-</footer>
+    <footer>
+        &copy; 2025 MedPoint Clinic - Wszystkie prawa zastrzeżone.
+    </footer>
 </body>
 </html>
 
