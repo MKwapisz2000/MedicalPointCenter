@@ -5,32 +5,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Godziny pracy lekarza</title>
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f1e1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #c58b6e, #a6785f);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+            border-bottom: 5px solid #8e6045;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #6F4F28;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
+
         table, th, td {
-            border: 1px solid black;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
+
         th, td {
-            padding: 8px;
-            text-align: left;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
         }
+
+        th {
+            background-color: #f2e0c1;
+            color: #6F4F28;
+            font-weight: bold;
+        }
+
+        td input {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-sizing: border-box; /* Zapewnia, że szerokość uwzględnia padding */
+        }
+
         .remove-button {
-            background-color: red;
+            background-color: #e74c3c;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 6px 12px;
             cursor: pointer;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .remove-button:hover {
+            background-color: #c0392b;
+        }
+
+        .buttons-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .buttons-container button {
+            background-color: #8e6045;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .buttons-container button:hover {
+            background-color: #6F4F28;
+        }
+
+        .message {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .message.success {
+            color: green;
+        }
+
+        .message.error {
+            color: red;
+        }
+
+        /* Media Queries dla responsywności */
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+                font-size: 12px;
+            }
+
+            td input {
+                width: 90%; /* Zmniejszamy szerokość inputów na mniejszych ekranach */
+            }
+
+            .buttons-container button {
+                width: 100%; /* Przycisk na całą szerokość w mniejszych ekranach */
+                font-size: 14px;
+                padding: 12px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            table {
+                font-size: 10px; /* Dalsze zmniejszenie czcionki */
+            }
+
+            td input {
+                width: 100%; /* Pełna szerokość inputów na bardzo małych ekranach */
+            }
+
+            .buttons-container button {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
 
-<h1>Dodaj godziny pracy</h1>
+<header>
+    <h1>Dodaj godziny pracy lekarza</h1>
+</header>
 
-<div th:if="${successMessage}" style="color: green; font-weight: bold;" th:text="${successMessage}"></div>
-<div th:if="${validationError}" style="color: red;" th:text="${validationError}"></div>
+<div class="message success" th:if="${successMessage}" th:text="${successMessage}"></div>
+<div class="message error" th:if="${validationError}" th:text="${validationError}"></div>
 
 <form action="/lekarz/godziny_pracy" method="post">
     <table id="timeTable">
@@ -51,8 +177,12 @@
         </tr>
         </tbody>
     </table>
-    <button type="button" onclick="addTimeEntry()">Dodaj godziny</button><br><br>
-    <button type="submit">Zapisz godziny pracy</button>
+
+    <div class="buttons-container">
+        <button type="button" onclick="addTimeEntry()">Dodaj godziny</button>
+        <br><br>
+        <button type="submit">Zapisz godziny pracy</button>
+    </div>
 </form>
 
 <script>
