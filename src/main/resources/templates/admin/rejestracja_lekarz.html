@@ -5,73 +5,212 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rejestracja specjalisty</title>
   <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f7f1e1;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    header {
+        background: linear-gradient(135deg, #c58b6e, #a6785f);
+        color: white;
+        text-align: center;
+        padding: 30px 20px;
+        margin-bottom: 40px;
+        border-bottom: 5px solid #8e6045;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+        font-size: 28px;
+        margin: 0;
+        letter-spacing: 1px;
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 30px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 8px;
+        display: inline-block;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        border-color: #c58b6e;
+        outline: none;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 12px;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 14px;
+        background-color: #c58b6e;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #b77a58;
+    }
+
     .specialization-container {
-      margin-bottom: 10px;
+        margin-bottom: 10px;
+    }
+
+    .link {
+        text-align: center;
+        font-size: 14px;
+        margin-top: 20px;
+    }
+
+    .link a {
+        color: #c58b6e;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .link a:hover {
+        color: #a6785f;
+    }
+
+    footer {
+        text-align: center;
+        padding: 15px;
+        background-color: #8e6045;
+        color: white;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        font-size: 14px;
+    }
+
+    footer a {
+        color: #f7d7c4;
+        text-decoration: none;
+        margin-left: 5px;
+    }
+
+    footer a:hover {
+        text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-<h1>Rejestracja specjalisty</h1>
+<header>
+  <h1>Rejestracja specjalisty</h1>
+</header>
 
-<div th:if="${successMessage}" style="color: green; font-weight: bold;" th:text="${successMessage}"></div>
-<div th:if="${validationError}" style="color: red;" th:text="${validationError}"></div>
-
-<form action="/admin/rejestracja_lekarz" method="post">
-
-  <label for="imie">Imię:</label>
-  <input type="text" id="imie" name="imie" /><br><br>
-
-  <label for="nazwisko">Nazwisko:</label>
-  <input type="text" id="nazwisko" name="nazwisko" /><br><br>
-
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="email" />
-  <span th:if="${emailError}" style="color: red;" th:text="${emailError}"></span><br><br>
-
-  <label for="haslo">Hasło:</label>
-  <input type="password" id="haslo" name="haslo" /><br><br>
-
-  <div id="specializations">
-    <label>Specjalizacje:</label>
-    <div class="specialization-container">
-      <input type="text" name="specjalizacje" placeholder="Wpisz specjalizację" />
-      <button type="button" onclick="removeSpecialization(this)">Usuń</button>
+<div class="form-container">
+  <form action="/admin/rejestracja_lekarz" method="post">
+    <div class="form-group">
+      <label for="imie">Imię:</label>
+      <input type="text" id="imie" name="imie" required />
     </div>
-  </div>
-  <button type="button" onclick="addSpecialization()">Dodaj specjalizację</button><br><br>
 
-  <button type="submit">Zarejestruj</button>
-</form>
+    <div class="form-group">
+      <label for="nazwisko">Nazwisko:</label>
+      <input type="text" id="nazwisko" name="nazwisko" required />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+      <span th:if="${emailError}" class="error-message" th:text="${emailError}"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="haslo">Hasło:</label>
+      <input type="password" id="haslo" name="haslo" required />
+    </div>
+
+    <div id="specializations">
+      <label>Specjalizacje:</label>
+      <div class="specialization-container">
+        <input type="text" name="specjalizacje" placeholder="Wpisz specjalizację" />
+        <button type="button" onclick="removeSpecialization(this)">Usuń</button>
+      </div>
+    </div>
+    <button type="button" onclick="addSpecialization()">Dodaj specjalizację</button><br><br>
+
+    <button type="submit">Zarejestruj</button>
+  </form>
+
+  <div class="link">
+    <p>Masz już konto? <a href="/logowanie">Zaloguj się</a></p>
+  </div>
+</div>
+
+<footer>
+  &copy; 2025 MedPoint Clinic - Wszystkie prawa zastrzeżone.
+</footer>
 
 <script>
   function addSpecialization() {
-    const specializationsDiv = document.getElementById('specializations');
-    const container = document.createElement('div');
-    container.className = 'specialization-container';
+      const specializationsDiv = document.getElementById('specializations');
+      const container = document.createElement('div');
+      container.className = 'specialization-container';
 
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.name = 'specjalizacje';
-    input.placeholder = 'Wpisz specjalizację';
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.name = 'specjalizacje';
+      input.placeholder = 'Wpisz specjalizację';
 
-    const removeButton = document.createElement('button');
-    removeButton.type = 'button';
-    removeButton.textContent = 'Usuń';
-    removeButton.onclick = function() {
-      removeSpecialization(removeButton);
-    };
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.textContent = 'Usuń';
+      removeButton.onclick = function() {
+          removeSpecialization(removeButton);
+      };
 
-    container.appendChild(input);
-    container.appendChild(removeButton);
-    specializationsDiv.appendChild(container);
+      container.appendChild(input);
+      container.appendChild(removeButton);
+      specializationsDiv.appendChild(container);
   }
 
   function removeSpecialization(button) {
-    const container = button.parentNode;
-    container.parentNode.removeChild(container);
+      const container = button.parentNode;
+      container.parentNode.removeChild(container);
   }
 </script>
 
 </body>
 </html>
+
