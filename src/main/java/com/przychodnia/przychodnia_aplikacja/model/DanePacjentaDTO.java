@@ -13,6 +13,8 @@ public class DanePacjentaDTO {
     private String nrLokalu;
     private String kodPocztowy;
     private Long idPacjent;
+    public DanePacjentaDTO(){
+    }
 
     public DanePacjentaDTO(String imie, String nazwisko, String pesel, String dataUrodzenia, String numerTelefonu, String email, String miasto, String ulica, String nrBudynku, String nrLokalu, String kodPocztowy) {
         this.imie = imie;
