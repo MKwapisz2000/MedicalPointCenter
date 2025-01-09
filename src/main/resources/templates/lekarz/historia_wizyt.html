@@ -4,39 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historia Wizyt - Lekarz</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f1e1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #c58b6e, #a6785f);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+            border-bottom: 5px solid #8e6045;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .error-message {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        .table-container {
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table thead th {
+            background-color: #f4f4f4;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+        }
+
+        table tbody td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        button {
+            background-color: #8e6045;;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #6F4F28;
+        }
+
+        @media (max-width: 768px) {
+            table thead th, table tbody td {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-<h1>Historia Wizyt Pacjentów</h1>
+
+<header>
+    <h1>Historia Wizyt</h1>
+</header>
 
 <!-- Obsługa komunikatów o błędach -->
-<div style="color: red;">
-    <p th:if="${validationError}" th:text="${validationError}"></p>
+<div th:if="${validationError}" class="error-message">
+    <p th:text="${validationError}"></p>
 </div>
 
 <!-- Lista pacjentów -->
-<form action="/lekarz/historia_wizyt" method="post">
-    <table border="1">
-        <thead>
-        <tr>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Akcja</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="pacjent : ${dane}">
-            <td th:text="${pacjent.getImie}"></td>
-            <td th:text="${pacjent.getNazwisko}"></td>
-            <td>
-                <button type="submit" name="idPacjent" th:value="${pacjent.getIdPacjent}">
-                    Pokaż Wizyty
-                </button>
-                <input type="hidden" name="imie" th:value="${pacjent.getImie}">
-                <input type="hidden" name="nazwisko" th:value="${pacjent.getNazwisko}">
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</form>
+<div class="table-container">
+    <form action="/lekarz/historia_wizyt" method="post">
+        <table>
+            <thead>
+            <tr>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Akcja</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pacjent : ${dane}">
+                <td th:text="${pacjent.getImie}"></td>
+                <td th:text="${pacjent.getNazwisko}"></td>
+                <td>
+                    <button type="submit" name="idPacjent" th:value="${pacjent.getIdPacjent}">
+                        Pokaż Wizyty
+                    </button>
+                    <input type="hidden" name="imie" th:value="${pacjent.getImie}">
+                    <input type="hidden" name="nazwisko" th:value="${pacjent.getNazwisko}">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
 </body>
 </html>
