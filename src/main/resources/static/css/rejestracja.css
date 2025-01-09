@@ -1,0 +1,128 @@
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f1e1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #c58b6e, #a6785f);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+            border-bottom: 5px solid #8e6045;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="date"]:focus {
+            border-color: #c58b6e;
+            outline: none;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background-color: #c58b6e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #b77a58;
+        }
+
+        .link {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .link a {
+            color: #c58b6e;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .link a:hover {
+            color: #a6785f;
+        }
+
+        .form-group input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+       /* Stopka */
+       footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #8e6045;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #f7d7c4;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }

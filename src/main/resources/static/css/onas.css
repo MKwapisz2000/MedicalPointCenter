@@ -1,0 +1,93 @@
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f1e1;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Zapobiega przewijaniu w poziomie */
+        }
+
+        header {
+            background-color: #c58b6e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-bottom: 5px solid #a6785f;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin: 0;
+        }
+
+        .section {
+            max-width: 80%; /* Ogranicza szerokość sekcji do 80% */
+            margin: 0 auto 30px; /* Centrowanie sekcji */
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            font-size: 24px;
+            color: #c58b6e;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .section .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section .content .text {
+            flex: 1;
+            max-width: 60%; /* Zmniejszenie szerokości kontenera tekstu */
+            min-width: 250px;
+        }
+
+        .section .content .image {
+            flex: 1;
+            max-width: 35%; /* Zmniejszenie szerokości kontenera obrazu */
+            min-width: 250px;
+            margin-top: 10px;
+        }
+
+        .section .content .image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .section .content .image img:hover {
+            transform: scale(1.05);
+        }
+
+        .reverse .image {
+            order: 1;
+        }
+
+        /* Ograniczenie wielkości zdjęcia w sekcji Misja i Wartości */
+        .reverse .image img {
+            max-width: 250px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #c58b6e;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }

@@ -1,0 +1,21 @@
+    header {
+      background: linear-gradient(135deg, #c58b6e, #a6785f);
+      color: white;
+      text-align: center;
+      padding: 20px 20px; 
+      margin-bottom: 0; 
+      border-bottom: 5px solid #8e6045;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+      font-size: 28px;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+/* Responsywność */
+   @media (max-width: 768px) {
+    header h1 {
+    font-size: 2rem;
+  }}
