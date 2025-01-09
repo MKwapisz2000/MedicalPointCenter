@@ -4,100 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logowanie</title>
-<style>  
-    *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
-    html, body {
-        font-family: Arial, sans-serif;
-        background-color: #f7f1e1;
-        margin: 0;
-        padding: 0;
-        height: 100%;
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    
-    body {
-        display: flex;
-        flex-direction: column;
+
+        html, body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f1e1;
+            margin: 0;
+            padding: 0;
+            height: 100%;
         }
-    
-    header {
-        background: linear-gradient(135deg, #c58b6e, #a6785f);
-        color: white;
-        text-align: center;
-        padding: 30px 20px;
-        border-bottom: 5px solid #8e6045;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        width: 100%; /* Tło na całą szerokość */
+
+        body {
+            display: flex;
+            flex-direction: column;
         }
-    
-    header h1 {
-        font-size: 28px;
-        margin: 0;
-        letter-spacing: 1px;
-    }
-    
-    .wrapper {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-    }
-    
-    .container {
-        background-color: #fff;
-        padding: 30px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        max-width: 400px; /* Ograniczenie szerokości formularza */
-        width: 100%;
-         text-align: center;
-    }
-    
-    label {
-        font-size: 1.1rem;
-        margin-bottom: 5px;
-        color: #6a4e23;
-        display: block;
-    }
-    
-    input {
-        width: 100%;
-        padding: 12px;
-        margin-bottom: 15px;
-        border: 1px solid #d4a1a1;
-        border-radius: 5px;
-        font-size: 1rem;
-        box-sizing: border-box;
-        background-color: #f8f0e1;
-    }
-    
-    input:focus {
-        border-color: #6a4e23;
-        outline: none;
-    }
 
-    button {
-        background-color: #6a4e23; 
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        font-size: 1.1rem;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 100%;
-        transition: background-color 0.3s;
-    }
+        header {
+            background: linear-gradient(135deg, #c58b6e, #a6785f);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            border-bottom: 5px solid #8e6045;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%; /* Tło na całą szerokość */
+        }
 
-    button:hover {
-        background-color: #5a3e1c; 
-}
-</style>
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
 
+        .wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 400px; /* Ograniczenie szerokości formularza */
+            width: 100%;
+            text-align: center;
+        }
+
+        label {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #6a4e23;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #d4a1a1;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background-color: #f8f0e1;
+        }
+
+        input:focus {
+            border-color: #6a4e23;
+            outline: none;
+        }
+
+        button {
+            background-color: #6a4e23;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #5a3e1c;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #8e6045;
+            color: white;
+            font-size: 14px;
+            margin-top: auto; /* Stopka zawsze na dole */
+            width: 100%; /* Szerokość stopki na całą stronę */
+        }
+
+        footer a {
+            color: #f7d7c4;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -128,5 +152,6 @@
     </footer>
 </body>
 </html>
+
 
 
