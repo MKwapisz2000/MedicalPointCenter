@@ -5,38 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grafik Lekarza</title>
     <style>
-        .reserved {
-            color: red;
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f1e1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .available {
-            color: green;
+        header {
+            background: linear-gradient(135deg, #c58b6e, #a6785f);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+            border-bottom: 5px solid #8e6045;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .schedule-container {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+        }
+
+        .date-header {
+            text-align: center;
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .schedule-table thead th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .schedule-table tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .reserved-row {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .available-row {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .schedule-table th, .schedule-table td {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
-<h1>Grafik lekarza</h1>
+<header>
+    <h1>Grafik lekarza</h1>
+</header>
 
 <!-- Informacja o błędach -->
-<div th:if="${validationError}" style="color: red;">
+<div th:if="${validationError}" class="error-message">
     <p th:text="${validationError}"></p>
 </div>
 
 <!-- Wyświetlanie grafiku -->
-<div th:each="termin : ${terminy}">
-    <h2 th:text="'Data: ' + ${termin.getData}"></h2>
-    <p th:text="'Godzina początkowa: ' + ${termin.getGodzina_startowa} + ', Godzina końcowa: ' + ${termin.getGodzina_koncowa}"></p>
+<div th:each="termin : ${terminy}" class="schedule-container">
+    <h2 class="date-header">Data: <span th:text="${termin.getData}"></span></h2>
 
-    <h3>Godziny:</h3>
-    <ul>
-        <li th:each="godzina : ${termin.getGodzinyGrafik}"
-            th:classappend="${godzina.reserved} ? 'reserved' : 'available'">
-            <span th:text="${godzina.getGodzina}"></span>
-            <span th:if="${godzina.reserved}" th:text="' Pacjent: ' + ${godzina.getImie} + ' ' + ${godzina.getNazwisko}"></span>
-            <span th:if="${!godzina.reserved}" th:text="' (Dostępny)'"></span>
-        </li>
-    </ul>
+    <table class="schedule-table">
+        <thead>
+        <tr>
+            <th>Godzina</th>
+            <th>Status</th>
+            <th>Pacjent</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="godzina : ${termin.getGodzinyGrafik}"
+            th:classappend="${godzina.reserved} ? 'reserved-row' : 'available-row'">
+            <td th:text="${godzina.getGodzina}"></td>
+            <td th:text="${godzina.reserved ? 'Zajęty' : 'Dostępny'}"></td>
+            <td>
+                <span th:if="${godzina.reserved}" th:text="${godzina.getImie} + ' ' + ${godzina.getNazwisko}"></span>
+                <span th:if="${!godzina.reserved}">Brak</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-
 </body>
 </html>
