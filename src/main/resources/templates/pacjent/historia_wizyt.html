@@ -4,35 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historia wizyt</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f1e1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #c58b6e, #a6785f);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+            border-bottom: 5px solid #8e6045;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: #8e6045;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+
+        .message {
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .success-message {
+            color: green;
+        }
+
+        .error-message {
+            color: black;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        li span {
+            font-weight: bold;
+        }
+
+        .no-visits {
+            text-align: center;
+            color: #6F4F28;
+            font-size: 1.2em;
+        }
+
+        .visit-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .visit-info p {
+            margin: 5px;
+            word-wrap: break-word;
+        }
+
+        /* Responsywność */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            li {
+                margin: 10px;
+                padding: 10px;
+            }
+
+            .visit-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            footer {
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<h1>Historia wizyt</h1>
+<header>
+    <h1>Historia wizyt</h1>
+</header>
 
-<div th:if="${successMessage}" style="color: green; font-weight: bold;" th:text="${successMessage}"></div>
-<div th:if="${validationError}" style="color: black;" th:text="${validationError}"></div>
+<div th:if="${successMessage}" class="message success-message" th:text="${successMessage}"></div>
+<div th:if="${validationError}" class="message error-message" th:text="${validationError}"></div>
 
 <h2>Nadchodzące:</h2>
 <div th:if="${nadchodzace == null or nadchodzace.isEmpty()}">
-    <p>Brak nadchodzących wizyt.</p>
+    <p class="no-visits">Brak nadchodzących wizyt.</p>
 </div>
 <ul th:if="${nadchodzace != null and not nadchodzace.isEmpty()}">
-    <li th:each="wizyta : ${nadchodzace}">
-        Lekarz: <span th:text="${wizyta.getImieLekarz}"></span> <span th:text="${wizyta.getNazwiskoLekarz}"></span>,
-        Data: <span th:text="${wizyta.getData}"></span>,
-        Godzina: <span th:text="${wizyta.getGodzina}"></span>
+    <li th:each="wizyta : ${nadchodzace}" class="visit-info">
+        <p>
+            Lekarz: <span th:text="${wizyta.getImieLekarz}"></span> <span th:text="${wizyta.getNazwiskoLekarz}"></span><br>
+            Data: <span th:text="${wizyta.getData}"></span><br>
+            Godzina: <span th:text="${wizyta.getGodzina}"></span>
+        </p>
     </li>
 </ul>
 
 <h2>Odbyte:</h2>
 <div th:if="${odbyte == null or odbyte.isEmpty()}">
-    <p>Brak odbytch wizyt.</p>
+    <p class="no-visits">Brak odbytych wizyt.</p>
 </div>
 <ul th:if="${odbyte != null and not odbyte.isEmpty()}">
-    <li th:each="wizyta : ${odbyte}">
-        Lekarz: <span th:text="${wizyta.getImieLekarz}"></span> <span th:text="${wizyta.getNazwiskoLekarz}"></span>,
-        Data: <span th:text="${wizyta.getData}"></span>,
-        Godzina: <span th:text="${wizyta.getGodzina}"></span>
+    <li th:each="wizyta : ${odbyte}" class="visit-info">
+        <p>
+            Lekarz: <span th:text="${wizyta.getImieLekarz}"></span> <span th:text="${wizyta.getNazwiskoLekarz}"></span><br>
+            Data: <span th:text="${wizyta.getData}"></span><br>
+            Godzina: <span th:text="${wizyta.getGodzina}"></span>
+        </p>
     </li>
 </ul>
 
