@@ -4,36 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zmiana Hasła</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f1e1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
 
-    <!-- Pliki CSS -->
-    <link rel="stylesheet" href="css/button.css">
-    <link rel="stylesheet" href="css/okienko.css">
-    <link rel="stylesheet" href="css/container.css">
+        h1 {
+            color: #6a4e23; 
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
 
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        label {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #6a4e23; 
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #d4a1a1; 
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background-color: #f8f0e1; 
+        }
+
+        input:focus {
+            border-color: #6a4e23; 
+            outline: none;
+        }
+
+        button {
+            background-color: #6a4e23; 
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #5a3e1c; 
+        }
+
+        .message {
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            color: #4CAF50; 
+            font-weight: bold;
+        }
+
+        .error {
+            color: #d9534f;
+            font-weight: bold;
+        }
+
+        .error-text {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            color: #d9534f;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Zmiana Hasła</h1>
+    <div class="container">
+        <h1>Zmiana Hasła</h1>
 
-    <!-- Komunikat o sukcesie -->
-    <div th:if="${successMessage}" class="message success" th:text="${successMessage}"></div>
+        <!-- Komunikat o sukcesie -->
+        <div th:if="${successMessage}" class="message success" th:text="${successMessage}"></div>
 
-    <!-- Komunikaty o błędach -->
-    <div th:if="${noweHasloError}" class="message error" th:text="${noweHasloError}"></div>
-    <div th:if="${validationError}" class="message error" th:text="${validationError}"></div>
+        <!-- Komunikaty o błędach -->
+        <div th:if="${noweHasloError}" class="message error" th:text="${noweHasloError}"></div>
+        <div th:if="${validationError}" class="message error" th:text="${validationError}"></div>
 
-    <form action="/zmiana_hasla" method="post">
-        <label for="noweHaslo">Nowe hasło:</label>
-        <input type="password" id="noweHaslo" name="noweHaslo" required /><br>
+        <form action="/zmiana_hasla" method="post">
+            <label for="noweHaslo">Nowe hasło:</label>
+            <input type="password" id="noweHaslo" name="noweHaslo" required /><br>
 
-        <label for="powtorzHaslo">Powtórz nowe hasło:</label>
-        <input type="password" id="powtorzHaslo" name="powtorzHaslo" required /><br>
+            <label for="powtorzHaslo">Powtórz nowe hasło:</label>
+            <input type="password" id="powtorzHaslo" name="powtorzHaslo" required /><br>
 
-        <button type="submit">Zmień hasło</button>
-    </form>
-</div>
-
+            <button type="submit">Zmień hasło</button>
+        </form>
+    </div>
 
 </body>
 </html>
