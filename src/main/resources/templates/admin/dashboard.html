@@ -4,15 +4,145 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel Administratora</title>
+  <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f7f1e1;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Minimum wysokości strony */
+    }
+
+    header {
+        background: linear-gradient(135deg, #c58b6e, #a6785f);
+        color: white;
+        text-align: center;
+        padding: 30px 20px;
+        margin-bottom: 20px; /* Zmniejszono odstęp */
+        border-bottom: 5px solid #8e6045;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+        font-size: 28px;
+        margin: 0;
+        letter-spacing: 1px;
+    }
+
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px; /* Zmniejszono odstęp między kartami */
+        justify-items: center;
+        margin: 10px; /* Zmniejszono margines */
+        padding: 0 10px;
+        flex-grow: 1; /* Rozciąga zawartość na całej stronie */
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        text-align: center;
+        padding: 10px; /* Zmniejszono wewnętrzne marginesy */
+        transition: transform 0.3s ease-in-out;
+        width: 100%;
+        max-width: 180px; /* Zmniejszono szerokość kart */
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        background-color: #f7d7c4;
+    }
+
+    .card a {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .card h3 {
+        font-size: 1rem; /* Zmniejszono rozmiar tekstu */
+        color: #6F4F28;
+        margin: 5px 0; /* Zmniejszono odstęp między ikoną a tekstem */
+    }
+
+    .card .icon {
+        font-size: 1.8rem; /* Zmniejszono rozmiar ikony */
+        margin-bottom: 5px;
+        color: #8e6045;
+    }
+
+    footer {
+        text-align: center;
+        padding: 10px; /* Zmniejszono odstęp */
+        background-color: #8e6045;
+        color: white;
+        font-size: 14px;
+        margin-top: auto; /* Wypycha stopkę na dół */
+    }
+
+    footer a {
+        color: #f7d7c4;
+        text-decoration: none;
+        margin-left: 5px;
+    }
+
+    footer a:hover {
+        text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-<h1>Witaj w panelu administratora</h1>
 
+<header>
+  <h1>Witaj w panelu administratora</h1>
+</header>
 
-<a href="/admin/rejestracja_lekarz" target="_blank">Dodaj Lekarza</a><br><br>
-<a href="/admin/dezaktywacja" target="_blank">Aktywuj/Dezaktywuj użytkownika</a><br><br>
-<a href="/zmiana_hasla" target="_blank">Zmiana hasła</a><br><br>
-<a href="/logout">Wyloguj się</a>
+<!-- Sekcja kart -->
+<div class="cards-container">
+  <div class="card">
+    <a href="/admin/rejestracja_lekarz">
+      <div class="icon">👨‍⚕️</div>
+      <h3>Dodaj lekarza</h3>
+    </a>
+  </div>
+
+  <div class="card">
+    <a href="/admin/addAdmin">
+      <div class="icon">👤️</div>
+      <h3>Dodaj administratora</h3>
+    </a>
+  </div>
+
+  <div class="card">
+    <a href="/admin/dezaktywacja">
+      <div class="icon">✅/❌</div>
+      <h3>Aktywuj/Dezaktywuj użytkownika</h3>
+    </a>
+  </div>
+
+  <div class="card">
+    <a href="/zmiana_hasla">
+      <div class="icon">🔒</div>
+      <h3>Zmiana hasła</h3>
+    </a>
+  </div>
+
+  <div class="card">
+    <a href="/logout">
+      <div class="icon">🚪</div>
+      <h3>Wyloguj się</h3>
+    </a>
+  </div>
+</div>
 
 </body>
 </html>
