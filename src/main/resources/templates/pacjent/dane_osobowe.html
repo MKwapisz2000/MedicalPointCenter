@@ -4,33 +4,144 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dane Osobowe</title>
+  <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f7f1e1;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    header {
+        background: linear-gradient(135deg, #c58b6e, #a6785f);
+        color: white;
+        text-align: center;
+        padding: 30px 20px;
+        margin-bottom: 40px;
+        border-bottom: 5px solid #8e6045;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+        font-size: 28px;
+        margin: 0;
+        letter-spacing: 1px;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      border-left: 5px solid #c58b6e;
+      padding-left: 10px;
+      color: #6F4F28;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .data-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      margin: 5px 0;
+      padding: 10px;
+      background-color: #f9f5f0;
+      border-radius: 5px;
+    }
+
+    .data-item span {
+      font-weight: bold;
+      color: #333;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #8e6045;
+      border-radius: 5px;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+
+    a:hover {
+      background-color: #6F4F28;
+    }
+
+    footer {
+        text-align: center;
+        padding: 15px;
+        background-color: #8e6045;
+        color: white;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        font-size: 14px;
+    }
+
+    footer a {
+        color: #f7d7c4;
+        text-decoration: none;
+        margin-left: 5px;
+    }
+
+    footer a:hover {
+        text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Dane osobowe</h1>
+<header>
+  <h1>Dane osobowe</h1>
+</header>
 
-<h2>Informacje osobiste:</h2>
-<p>Imię: <span th:text="${danePacjenta.imie}"></span></p>
-<p>Nazwisko: <span th:text="${danePacjenta.nazwisko}"></span></p>
-<p>Pesel: <span th:text="${danePacjenta.pesel}"></span></p>
-<p>Data urodzenia: <span th:text="${danePacjenta.dataUrodzenia}"></span></p>
-<br><br>
+<div class="content">
 
-<h2>Adres:</h2>
-<p>Ulica: <span th:text="${danePacjenta.ulica}"></span></p>
-<p>Numer budynku: <span th:text="${danePacjenta.nrBudynku}"></span></p>
-<p>Numer lokalu: <span th:text="${danePacjenta.nrLokalu}"></span></p>
-<p>Miasto: <span th:text="${danePacjenta.miasto}"></span></p>
-<p>Kod Pocztowy: <span th:text="${danePacjenta.kodPocztowy}"></span></p>
-<br><br>
+  <div class="section">
+    <h2>Informacje osobiste:</h2>
+    <div class="data-item">Imię: <span th:text="${danePacjenta.imie}"></span></div>
+    <div class="data-item">Nazwisko: <span th:text="${danePacjenta.nazwisko}"></span></div>
+    <div class="data-item">Pesel: <span th:text="${danePacjenta.pesel}"></span></div>
+    <div class="data-item">Data urodzenia: <span th:text="${danePacjenta.dataUrodzenia}"></span></div>
+  </div>
 
-<h2>Dane kontaktowe:</h2>
-<p>Email: <span th:text="${danePacjenta.email}"></span></p>
-<p>Telefon: <span th:text="${danePacjenta.numerTelefonu}"></span></p>
-<br><br>
+  <div class="section">
+    <h2>Adres:</h2>
+    <div class="data-item">Ulica: <span th:text="${danePacjenta.ulica}"></span></div>
+    <div class="data-item">Numer budynku: <span th:text="${danePacjenta.nrBudynku}"></span></div>
+    <div class="data-item">Numer lokalu: <span th:text="${danePacjenta.nrLokalu}"></span></div>
+    <div class="data-item">Miasto: <span th:text="${danePacjenta.miasto}"></span></div>
+    <div class="data-item">Kod Pocztowy: <span th:text="${danePacjenta.kodPocztowy}"></span></div>
+  </div>
 
-<a href="/pacjent/edycja_danych" target="_blank">Edytuj dane osobowe</a>
+  <div class="section">
+    <h2>Dane kontaktowe:</h2>
+    <div class="data-item">Email: <span th:text="${danePacjenta.email}"></span></div>
+    <div class="data-item">Telefon: <span th:text="${danePacjenta.numerTelefonu}"></span></div>
+  </div>
 
+  <a href="/pacjent/edycja_danych" target="_blank">Edytuj dane osobowe</a>
+</div>
+
+<footer>
+  &copy; 2025 MedPoint Clinic - Wszystkie prawa zastrzeżone.
+</footer>
 
 </body>
 </html>
+
